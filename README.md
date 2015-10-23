@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/oauthclient.svg?style=flat)](https://packagist.org/packages/mediawiki/oauthclient)
 [![License](https://img.shields.io/packagist/l/mediawiki/oauthclient.svg?style=flat)](https://github.com/wikimedia/mediawiki-oauthclient-php/blob/master/COPYING)
-[![Build Status](https://img.shields.io/travis/wikimedia/mediawiki-oauthclient-php-.svg?style=flat)](https://travis-ci.org/wikimedia/mediawiki-oauthclient-php)
+[![Build Status](https://img.shields.io/travis/wikimedia/mediawiki-oauthclient-php.svg?style=flat)](https://travis-ci.org/wikimedia/mediawiki-oauthclient-php)
 
 mediawiki/oauthclient-php
 =========================
