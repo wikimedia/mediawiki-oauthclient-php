@@ -1,0 +1,5 @@
+/vendor/
+/coverage/
+/docs/
+/composer.phar
+/composer.lock
