@@ -109,7 +109,7 @@ partially based on [Andy Smith's OAuth library][].
 [OAuth]: https://en.wikipedia.org/wiki/OAuth
 [Wikipedia]: https://www.wikipedia.org
 [OAuth extension]: https://www.mediawiki.org/wiki/Extension:OAuth
-[Stype/mwoauth-php]: htps://github.com/Stype/mwoauth-php
+[Stype/mwoauth-php]: https://github.com/Stype/mwoauth-php
 [Andy Smith's OAuth library]: https://code.google.com/p/oauth/
 [Latest Stable Version]: https://img.shields.io/packagist/v/mediawiki/oauthclient.svg?style=flat
 [License]: https://img.shields.io/packagist/l/mediawiki/oauthclient.svg?style=flat
