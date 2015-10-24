@@ -263,7 +263,12 @@ class Client implements LoggerAwareInterface {
 		}
 		$data = curl_exec( $ch );
 		if ( !$data ) {
-			throw new Exception( 'Curl error: ' . curl_error( $ch ) );
+			if ( curl_errno( $ch ) ) {
+				throw new Exception( 'Curl error: ' . curl_error( $ch ) );
+			} else {
+				throw new Exception( 'Empty HTTP response! Status: '
+					. curl_getinfo( $ch, CURLINFO_HTTP_CODE ) );
+			}
 		}
 		return $data;
 	}
