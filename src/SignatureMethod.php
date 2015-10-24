@@ -41,8 +41,8 @@ abstract class SignatureMethod {
 	/**
 	 * Build up the signature
 	 * NOTE: The output of this function MUST NOT be urlencoded.
-	 * the encoding is handled in OAuthRequest when the final
-	 * request is serialized
+	 * the encoding is handled in Request when the final request
+	 * is serialized
 	 * @param Request $request
 	 * @param Consumer $consumer
 	 * @param Token $token
