@@ -23,7 +23,6 @@
 
 namespace MediaWiki\OAuthClient;
 
-use Exception;
 use MediaWiki\OAuthClient\SignatureMethod\HmacSha1;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
