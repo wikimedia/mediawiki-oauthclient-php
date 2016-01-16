@@ -102,7 +102,8 @@ Running tests
 History
 -------
 The code is a refactored version of [Stype/mwoauth-php][], which in turn is
-partially based on [Andy Smith's OAuth library][].
+partially based on [Andy Smith's OAuth library][]. Some code is taken from
+[wikimedia/slimapp][].
 
 
 ---
@@ -111,6 +112,7 @@ partially based on [Andy Smith's OAuth library][].
 [OAuth extension]: https://www.mediawiki.org/wiki/Extension:OAuth
 [Stype/mwoauth-php]: https://github.com/Stype/mwoauth-php
 [Andy Smith's OAuth library]: https://code.google.com/p/oauth/
+[wikimedia/slimapp]: https://github.com/wikimedia/wikimedia-slimapp
 [Latest Stable Version]: https://img.shields.io/packagist/v/mediawiki/oauthclient.svg?style=flat
 [License]: https://img.shields.io/packagist/l/mediawiki/oauthclient.svg?style=flat
 [Build Status]: https://img.shields.io/travis/wikimedia/mediawiki-oauthclient-php.svg?style=flat
