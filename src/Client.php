@@ -34,6 +34,13 @@ use Psr\Log\NullLogger;
 class Client implements LoggerAwareInterface {
 
 	/**
+	 * Number of seconds by which IAT (token issue time) can be larger than current time, to account
+	 * for clock drift.
+	 * @var int
+	 */
+	const IAT_TOLERANCE = 2;
+
+	/**
 	 * @var LoggerInterface $logger
 	 */
 	protected $logger;
@@ -317,7 +324,7 @@ class Client implements LoggerAwareInterface {
 		// Verify we are within the time limits of the token. Issued at (iat)
 		// should be in the past, Expiration (exp) should be in the future.
 		$now = time();
-		if ( $identity->iat > $now || $identity->exp < $now ) {
+		if ( $identity->iat > $now + static::IAT_TOLERANCE || $identity->exp < $now ) {
 			$this->logger->info(
 				"Invalid times issued='{$identity->iat}', " .
 				"expires='{$identity->exp}', now='{$now}'"
