@@ -135,7 +135,23 @@ class Client implements LoggerAwareInterface {
 			urlencode( $this->callbackUrl );
 		$data = $this->makeOAuthCall( null, $initUrl );
 		$return = json_decode( $data );
-		if ( $return->oauth_callback_confirmed !== 'true' ) {
+		if ( $return === null ) {
+			$this->logger->error(
+				'Failed to decode server response as JSON: {response}',
+				 array( 'response' => $data )
+			);
+			throw new Exception( 'Decoding server response failed.' );
+		}
+		if ( property_exists( $return, 'error' ) ) {
+			$this->logger->error(
+				'OAuth server error {error}: {msg}',
+				array( 'error' => $return->error, 'msg' => $return->message )
+			);
+			throw new Exception( $return->message );
+		}
+		if ( !property_exists( $return, 'oauth_callback_confirmed' ) ||
+			$return->oauth_callback_confirmed !== 'true'
+		) {
 			throw new Exception( "Callback wasn't confirmed" );
 		}
 		$requestToken = new Token( $return->key, $return->secret );
