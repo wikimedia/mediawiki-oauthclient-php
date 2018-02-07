@@ -221,6 +221,17 @@ class Client implements LoggerAwareInterface {
 	public function makeOAuthCall(
 		/*Token*/ $token, $url, $isPost = false, array $postFields = null
 	) {
+		// Figure out if there is a file in postFields
+		$hasFile = false;
+		if ( is_array( $postFields ) ) {
+			foreach ( $postFields as $field ) {
+				if ( is_a( $field, 'CurlFile' ) ) {
+					$hasFile = true;
+					break;
+				}
+			}
+		}
+
 		$params = [];
 		// Get any params from the url
 		if ( strpos( $url, '?' ) ) {
@@ -228,7 +239,7 @@ class Client implements LoggerAwareInterface {
 			parse_str( $parsed['query'], $params );
 		}
 		$params += $this->extraParams;
-		if ( $isPost && $postFields ) {
+		if ( $isPost && $postFields && !$hasFile ) {
 			$params += $postFields;
 		}
 		$method = $isPost ? 'POST' : 'GET';
@@ -250,7 +261,7 @@ class Client implements LoggerAwareInterface {
 			$req->toHeader(),
 			$isPost,
 			$postFields,
-			$this->config
+			$hasFile
 		);
 	}
 
@@ -259,11 +270,16 @@ class Client implements LoggerAwareInterface {
 	 * @param array $headers
 	 * @param bool $isPost
 	 * @param array $postFields
+	 * @param bool $hasFile
 	 * @return string
 	 */
 	private function makeCurlCall(
-		$url, $headers, $isPost, array $postFields = null
+		$url, $headers, $isPost, array $postFields = null, $hasFile = false
 	) {
+		if ( !$hasFile && $postFields ) {
+			$postFields = http_build_query( $postFields );
+		}
+
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, (string)$url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
@@ -271,7 +287,7 @@ class Client implements LoggerAwareInterface {
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, [ $headers ] );
 		if ( $isPost ) {
 			curl_setopt( $ch, CURLOPT_POST, true );
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $postFields ) );
+			curl_setopt( $ch, CURLOPT_POSTFIELDS, $postFields );
 		}
 		if ( $this->config->useSSL ) {
 			curl_setopt( $ch, CURLOPT_PORT, 443 );
