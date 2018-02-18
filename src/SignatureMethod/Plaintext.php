@@ -52,16 +52,20 @@ class Plaintext extends SignatureMethod {
 	 *
 	 * Please note that the second encoding MUST NOT happen in the
 	 * SignatureMethod, as Request handles this!
+	 * @param Request $request
+	 * @param Consumer $consumer
+	 * @param Token|null $token
+	 * @return string
 	 */
 	public function buildSignature(
 		Request $request,
 		Consumer $consumer,
 		Token $token = null
 	) {
-		$key_parts = array(
+		$key_parts = [
 			$consumer->secret,
 			$token ? $token->secret : ''
-		);
+		];
 
 		$key_parts = Util::urlencode( $key_parts );
 		$key = implode( '&', $key_parts );

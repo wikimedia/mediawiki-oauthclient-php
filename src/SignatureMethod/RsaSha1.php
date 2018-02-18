@@ -31,7 +31,6 @@ use MediaWiki\OAuthClient\Consumer;
 use MediaWiki\OAuthClient\Request;
 use MediaWiki\OAuthClient\SignatureMethod;
 use MediaWiki\OAuthClient\Token;
-use MediaWiki\OAuthClient\Util;
 
 /**
  * The RSA-SHA1 signature method uses the RSASSA-PKCS1-v1_5 signature

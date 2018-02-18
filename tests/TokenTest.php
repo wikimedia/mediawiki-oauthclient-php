@@ -30,9 +30,9 @@ namespace MediaWiki\OAuthClient\Test;
 use MediaWiki\OAuthClient\Token;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\Token
+ * @covers \MediaWiki\OAuthClient\Token
  */
-class TokenTest extends \PHPUnit_Framework_TestCase {
+class TokenTest extends \PHPUnit\Framework\TestCase {
 	public function testSerialize() {
 		$token = new Token( 'token', 'secret' );
 		$this->assertEquals(

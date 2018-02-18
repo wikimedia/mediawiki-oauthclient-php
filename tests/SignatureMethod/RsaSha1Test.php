@@ -28,13 +28,11 @@
 namespace MediaWiki\OAuthClient\Test\SignatureMethod;
 
 use MediaWiki\OAuthClient\Consumer;
-use MediaWiki\OAuthClient\Request;
-use MediaWiki\OAuthClient\Token;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\SignatureMethod\RsaSha1
+ * @covers \MediaWiki\OAuthClient\SignatureMethod\RsaSha1
  */
-class RsaSha1Test extends \PHPUnit_Framework_TestCase {
+class RsaSha1Test extends \PHPUnit\Framework\TestCase {
 	private $method;
 
 	public function setUp() {
@@ -72,7 +70,7 @@ EOD;
 
 		$this->method = $this->getMockBuilder(
 			'MediaWiki\OAuthClient\SignatureMethod\RsaSha1' )
-			->setMethods( array( 'fetchPrivateCert', 'fetchPublicCert' ) )
+			->setMethods( [ 'fetchPrivateCert', 'fetchPublicCert' ] )
 			->getMock();
 
 		$this->method->method( 'fetchPrivateCert' )

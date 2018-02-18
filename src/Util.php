@@ -65,7 +65,7 @@ class Util {
 	public static function splitHeader( $header, $oauthOnly = true ) {
 		$re = '/(' . ( $oauthOnly ? 'oauth_' : '' ) .
 			'[a-z_-]*)=(:?"([^"]*)"|([^,]*))/';
-		$params = array();
+		$params = [];
 		if ( preg_match_all( $re, $header, $m ) ) {
 			foreach ( $m[1] as $i => $h ) {
 				$params[$h] = static::urldecode(
@@ -92,7 +92,7 @@ class Util {
 			// we always want the keys to be Cased-Like-This and arh()
 			// returns the headers in the same case as they are in the
 			// request
-			$out = array();
+			$out = [];
 			foreach ( $headers as $key => $value ) {
 				$key = str_replace(
 					' ', '-',
@@ -103,7 +103,7 @@ class Util {
 		} else {
 			// otherwise we don't have apache and are just going to have to
 			// hope that $_SERVER actually contains what we need
-			$out = array();
+			$out = [];
 			if ( isset( $_SERVER['CONTENT_TYPE'] ) ) {
 				$out['Content-Type'] = $_SERVER['CONTENT_TYPE'];
 			}
@@ -112,7 +112,7 @@ class Util {
 			}
 
 			foreach ( $_SERVER as $key => $value ) {
-				if ( substr( $key, 0, 5 )  == 'HTTP_' ) {
+				if ( substr( $key, 0, 5 ) == 'HTTP_' ) {
 					// this is chaos, basically it is just there to capitalize
 					// the first letter of every word that is not an initial
 					// HTTP and strip HTTP_ prefix
@@ -139,12 +139,12 @@ class Util {
 	 */
 	public static function parseParameters( $input ) {
 		if ( !isset( $input ) || !$input ) {
-			return array();
+			return [];
 		}
 
 		$pairs = explode( '&', $input );
 
-		$parsed = array();
+		$parsed = [];
 		foreach ( $pairs as $pair ) {
 			$split = explode( '=', $pair, 2 );
 			$parameter = static::urldecode( $split[0] );
@@ -157,7 +157,7 @@ class Util {
 				if ( is_scalar( $parsed[$parameter] ) ) {
 					// This is the first duplicate, so transform scalar
 					// (string) into an array so we can add the duplicates
-					$parsed[$parameter] = array( $parsed[$parameter] );
+					$parsed[$parameter] = [ $parsed[$parameter] ];
 				}
 
 				$parsed[$parameter][] = $value;
@@ -186,7 +186,7 @@ class Util {
 		// ordering. Ref: Spec: 9.1.1 (1)
 		uksort( $params, 'strcmp' );
 
-		$pairs = array();
+		$pairs = [];
 		foreach ( $params as $parameter => $value ) {
 			if ( is_array( $value ) ) {
 				// If two or more parameters share the same name, they are

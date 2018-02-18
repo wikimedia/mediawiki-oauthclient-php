@@ -54,7 +54,7 @@ class Client implements LoggerAwareInterface {
 	 * Any extra params in the call that need to be signed
 	 * @var array $extraParams
 	 */
-	private $extraParams = array();
+	private $extraParams = [];
 
 	/**
 	 * url, defaults to oob
@@ -138,14 +138,14 @@ class Client implements LoggerAwareInterface {
 		if ( $return === null ) {
 			$this->logger->error(
 				'Failed to decode server response as JSON: {response}',
-				 array( 'response' => $data )
+				 [ 'response' => $data ]
 			);
 			throw new Exception( 'Decoding server response failed.' );
 		}
 		if ( property_exists( $return, 'error' ) ) {
 			$this->logger->error(
 				'OAuth server error {error}: {msg}',
-				array( 'error' => $return->error, 'msg' => $return->message )
+				[ 'error' => $return->error, 'msg' => $return->message ]
 			);
 			throw new Exception( $return->message );
 		}
@@ -158,7 +158,7 @@ class Client implements LoggerAwareInterface {
 		$url = $this->config->redirURL ?:
 			$this->config->endpointURL . "/authorize&";
 		$url .= "oauth_token={$requestToken->key}&oauth_consumer_key={$this->config->consumer->key}";
-		return array( $url, $requestToken );
+		return [ $url, $requestToken ];
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Client implements LoggerAwareInterface {
 	 * for an access token, which you'll use for all API calls.
 	 *
 	 * @param Token $requestToken Authorization code sent to the callback url
-	 * @param string Temp/request token obtained from initiate, or null if this
+	 * @param string $verifyCode Temp/request token obtained from initiate, or null if this
 	 *     object was used and the token is already set.
 	 * @return Token The access token
 	 */
@@ -178,7 +178,7 @@ class Client implements LoggerAwareInterface {
 		$return = json_decode( $data );
 		$accessToken = new Token( $return->key, $return->secret );
 		// Cleanup after ourselves
-		$this->setExtraParams = array();
+		$this->setExtraParams = [];
 		return $accessToken;
 	}
 
@@ -221,7 +221,7 @@ class Client implements LoggerAwareInterface {
 	public function makeOAuthCall(
 		/*Token*/ $token, $url, $isPost = false, array $postFields = null
 	) {
-		$params = array();
+		$params = [];
 		// Get any params from the url
 		if ( strpos( $url, '?' ) ) {
 			$parsed = parse_url( $url );
@@ -265,10 +265,10 @@ class Client implements LoggerAwareInterface {
 		$url, $headers, $isPost, array $postFields = null
 	) {
 		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, (string) $url );
+		curl_setopt( $ch, CURLOPT_URL, (string)$url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( $headers ) );
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, [ $headers ] );
 		if ( $isPost ) {
 			curl_setopt( $ch, CURLOPT_POST, true );
 			curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $postFields ) );
@@ -322,6 +322,7 @@ class Client implements LoggerAwareInterface {
 	 * @param string $consumerKey
 	 * @param string $expectedConnonicalServer
 	 * @param string $nonce
+	 * @return bool
 	 */
 	protected function validateJWT(
 		$identity, $consumerKey, $expectedConnonicalServer, $nonce

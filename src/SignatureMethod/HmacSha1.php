@@ -54,10 +54,10 @@ class HmacSha1 extends SignatureMethod {
 		$base_string = $request->getSignatureBaseString();
 		$request->base_string = $base_string;
 
-		$key_parts = array(
+		$key_parts = [
 			$consumer->secret,
 			$token ? $token->secret : ''
-		);
+		];
 
 		$key_parts = Util::urlencode( $key_parts );
 		$key = implode( '&', $key_parts );

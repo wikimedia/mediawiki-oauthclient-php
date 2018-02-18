@@ -28,14 +28,13 @@
 namespace MediaWiki\OAuthClient\Test\SignatureMethod;
 
 use MediaWiki\OAuthClient\Consumer;
-use MediaWiki\OAuthClient\Request;
 use MediaWiki\OAuthClient\SignatureMethod\HmacSha1;
 use MediaWiki\OAuthClient\Token;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\SignatureMethod\HmacSha1
+ * @covers \MediaWiki\OAuthClient\SignatureMethod\HmacSha1
  */
-class HmacSha1Test extends \PHPUnit_Framework_TestCase {
+class HmacSha1Test extends \PHPUnit\Framework\TestCase {
 	private $method;
 
 	public function setUp() {

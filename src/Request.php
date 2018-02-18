@@ -63,7 +63,7 @@ class Request {
 	 * @param array $parameters
 	 */
 	function __construct( $method, $url, $parameters = null ) {
-		$parameters = $parameters ?: array();
+		$parameters = $parameters ?: [];
 		$parameters = array_merge(
 			Util::parseParameters( parse_url( $url, PHP_URL_QUERY ) ),
 			$parameters
@@ -72,7 +72,6 @@ class Request {
 		$this->method = $method;
 		$this->url = $url;
 	}
-
 
 	/**
 	 * Attempt to build up a request from what was passed to the server
@@ -148,13 +147,13 @@ class Request {
 		$url,
 		array $parameters = null
 	) {
-		$parameters = $parameters ?: array();
-		$defaults = array(
+		$parameters = $parameters ?: [];
+		$defaults = [
 			'oauth_version' => static::$version,
 			'oauth_nonce' => md5( microtime() . mt_rand() ),
 			'oauth_timestamp' => time(),
 			'oauth_consumer_key' => $consumer->key,
-		);
+		];
 		if ( $token ) {
 			$defaults['oauth_token'] = $token->key;
 		}
@@ -170,7 +169,7 @@ class Request {
 			if ( is_scalar( $this->parameters[$name] ) ) {
 				// This is the first duplicate, so transform scalar (string)
 				// into an array so we can add the duplicates
-				$this->parameters[$name] = array( $this->parameters[$name] );
+				$this->parameters[$name] = [ $this->parameters[$name] ];
 			}
 
 			$this->parameters[$name][] = $value;
@@ -225,13 +224,14 @@ class Request {
 	 * The base string defined as the method, the url
 	 * and the parameters (normalized), each urlencoded
 	 * and the concated with &.
+	 * @return string
 	 */
 	public function getSignatureBaseString() {
-		$parts = array(
+		$parts = [
 			$this->getNormalizedMethod(),
 			$this->getNormalizedUrl(),
 			$this->getSignableParameters()
-		);
+		];
 
 		$parts = Util::urlencode( $parts );
 
@@ -268,6 +268,7 @@ class Request {
 
 	/**
 	 * Builds a url usable for a GET request
+	 * @return string
 	 */
 	public function toUrl() {
 		$post_data = $this->toPostData();
@@ -280,6 +281,7 @@ class Request {
 
 	/**
 	 * Builds the data one would send in a POST request
+	 * @return string
 	 */
 	public function toPostData() {
 		return Util::buildHttpQuery( $this->parameters );
@@ -287,6 +289,8 @@ class Request {
 
 	/**
 	 * Builds the Authorization: header
+	 * @param string|null $realm
+	 * @return string
 	 */
 	public function toHeader( $realm = null ) {
 		$first = true;

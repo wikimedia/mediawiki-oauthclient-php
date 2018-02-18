@@ -34,24 +34,24 @@ use MediaWiki\OAuthClient\SignatureMethod\Plaintext;
 use MediaWiki\OAuthClient\Token;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\Request
+ * @covers \MediaWiki\OAuthClient\Request
  */
-class RequestTest extends \PHPUnit_Framework_TestCase {
+class RequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function testCanGetSingleParameter() {
-		$request = new Request( '', '', array( 'test'=>'foo' ) );
+		$request = new Request( '', '', [ 'test' => 'foo' ] );
 		$this->assertEquals( 'foo', $request->getParameter( 'test' ),
 			'Failed to read back parameter'
 		 );
 
 		$request = new Request(
-			'', '', array( 'test' => array( 'foo', 'bar' ) )
+			'', '', [ 'test' => [ 'foo', 'bar' ] ]
 		 );
-		$this->assertEquals( array( 'foo', 'bar' ),
+		$this->assertEquals( [ 'foo', 'bar' ],
 			$request->getParameter( 'test' ), 'Failed to read back parameter' );
 
 		$request = new Request(
-			'', '', array( 'test' => 'foo', 'bar' => 'baz' )
+			'', '', [ 'test' => 'foo', 'bar' => 'baz' ]
 		 );
 		$this->assertEquals( 'foo', $request->getParameter( 'test' ),
 			'Failed to read back parameter'
@@ -64,21 +64,21 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 	public function testGetAllParameters() {
 		// Yes, a awesomely boring test.. But if this doesn't work, the other
 		// tests is unreliable
-		$request = new Request( '', '', array( 'test' => 'foo' ) );
-		$this->assertEquals( array( 'test'=>'foo' ), $request->getParameters(),
+		$request = new Request( '', '', [ 'test' => 'foo' ] );
+		$this->assertEquals( [ 'test' => 'foo' ], $request->getParameters(),
 			'Failed to read back parameters'
 		 );
 
 		$request = new Request(
-			'', '', array( 'test' => 'foo', 'bar' => 'baz' )
+			'', '', [ 'test' => 'foo', 'bar' => 'baz' ]
 		 );
-		$this->assertEquals( array( 'test' => 'foo', 'bar' => 'baz' ),
+		$this->assertEquals( [ 'test' => 'foo', 'bar' => 'baz' ],
 			$request->getParameters(), 'Failed to read back parameters' );
 
 		$request = new Request(
-			'', '', array( 'test' => array( 'foo', 'bar' ) )
+			'', '', [ 'test' => [ 'foo', 'bar' ] ]
 		 );
-		$this->assertEquals( array( 'test' => array( 'foo', 'bar' ) ),
+		$this->assertEquals( [ 'test' => [ 'foo', 'bar' ] ],
 			$request->getParameters(), 'Failed to read back parameters' );
 	}
 
@@ -92,7 +92,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 			'Failed to set single-entry parameter' );
 
 		$request->setParameter( 'test', 'bar' );
-		$this->assertEquals( array( 'foo', 'bar' ),
+		$this->assertEquals( [ 'foo', 'bar' ],
 			$request->getParameter( 'test' ),
 			'Failed to set single-entry parameter'
 		 );
@@ -134,11 +134,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 		// 32 hexa digits
 
 		$request = Request::fromConsumerAndToken( $cons, $token, 'POST',
-			'http://example.com', array( 'oauth_nonce'=>'foo' ) );
+			'http://example.com', [ 'oauth_nonce' => 'foo' ] );
 		$this->assertEquals( 'foo', $request->getParameter( 'oauth_nonce' ) );
 
 		$request = Request::fromConsumerAndToken( $cons, null, 'POST',
-			'http://example.com', array( 'oauth_nonce'=>'foo' ) );
+			'http://example.com', [ 'oauth_nonce' => 'foo' ] );
 		$this->assertNull( $request->getParameter( 'oauth_token' ) );
 
 		// Test that parameters given in the $http_url instead of in the
@@ -152,14 +152,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 	public function testBuildRequestFromPost() {
 		static::buildRequest(
 			'POST', 'http://testbed/test', 'foo=bar&baz=blargh' );
-		$this->assertEquals( array( 'foo'=>'bar','baz'=>'blargh' ),
+		$this->assertEquals( [ 'foo' => 'bar','baz' => 'blargh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to parse POST parameters' );
 	}
 
 	public function testBuildRequestFromGet() {
 		static::buildRequest( 'GET', 'http://testbed/test?foo=bar&baz=blargh' );
-		$this->assertEquals( array( 'foo'=>'bar','baz'=>'blargh' ),
+		$this->assertEquals( [ 'foo' => 'bar','baz' => 'blargh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to parse GET parameters' );
 	}
@@ -168,7 +168,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 		$test_header = 'OAuth realm="",oauth_foo=bar,oauth_baz="bla,rgh"';
 		static::buildRequest( 'POST', 'http://testbed/test', '', $test_header );
 		$this->assertEquals(
-			array( 'oauth_foo'=>'bar','oauth_baz'=>'bla,rgh' ),
+			[ 'oauth_foo' => 'bar','oauth_baz' => 'bla,rgh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to split auth-header correctly' );
 	}
@@ -370,7 +370,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 
 		static::buildRequest( 'POST', 'http://testbed/test', 'n=v&n=v2' );
 		$this->assertEquals( 'POST&http%3A%2F%2Ftestbed%2Ftest&n%3Dv%26n%3Dv2',
-		   	Request::fromRequest()->getSignatureBaseString() );
+			Request::fromRequest()->getSignatureBaseString() );
 
 		static::buildRequest( 'GET', 'http://example.com?n=v' );
 		$this->assertEquals( 'GET&http%3A%2F%2Fexample.com&n%3Dv',
@@ -471,7 +471,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 			. '&oauth_timestamp=1191242096&oauth_token=nnch734d00sl2jdk'
 			. '&oauth_version=1.0&size=original';
 		$this->assertEquals( $expectedPostdata, $r->toPostData() );
-
 	}
 
 	/**
@@ -486,9 +485,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 	public static function buildRequest(
 		$method, $uri, $post_data = '', $auth_header = ''
 	 ) {
-		$_SERVER = array();
-		$_POST = array();
-		$_GET = array();
+		$_SERVER = [];
+		$_POST = [];
+		$_GET = [];
 
 		$method = strtoupper( $method );
 
@@ -498,7 +497,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 		$port   = isset( $parts['port'] ) && $parts['port'] ?
 			$parts['port'] : ( $scheme === 'https' ? '443' : '80' );
 		$host   = $parts['host'];
-		$path   = isset( $parts['path'] )  ? $parts['path']  : null;
+		$path   = isset( $parts['path'] ) ? $parts['path'] : null;
 		$query  = isset( $parts['query'] ) ? $parts['query'] : null;
 
 		if ( $scheme == 'https' ) {

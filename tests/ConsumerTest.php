@@ -30,14 +30,14 @@ namespace MediaWiki\OAuthClient\Test;
 use MediaWiki\OAuthClient\Consumer;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\Consumer
+ * @covers \MediaWiki\OAuthClient\Consumer
  */
-class ConsumerTest extends \PHPUnit_Framework_TestCase {
+class ConsumerTest extends \PHPUnit\Framework\TestCase {
 	public function testConvertToString() {
 		$consumer = new Consumer( 'key', 'secret' );
 		$this->assertEquals(
 			'MediaWiki\OAuthClient\Consumer[key=key,secret=secret]',
-			(string) $consumer
+			(string)$consumer
 		);
 	}
 }

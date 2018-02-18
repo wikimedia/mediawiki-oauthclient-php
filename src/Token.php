@@ -43,8 +43,8 @@ class Token {
 	public $secret;
 
 	/**
-	 * @param string key The token
-	 * @param string secret The token secret
+	 * @param string $key The token
+	 * @param string $secret The token secret
 	 */
 	function __construct( $key, $secret ) {
 		$this->key = $key;

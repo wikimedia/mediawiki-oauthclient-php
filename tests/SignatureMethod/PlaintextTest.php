@@ -28,14 +28,13 @@
 namespace MediaWiki\OAuthClient\Test\SignatureMethod;
 
 use MediaWiki\OAuthClient\Consumer;
-use MediaWiki\OAuthClient\Request;
 use MediaWiki\OAuthClient\SignatureMethod\Plaintext;
 use MediaWiki\OAuthClient\Token;
 
 /**
- * @coversDefaultClass \MediaWiki\OAuthClient\SignatureMethod\Plaintext
+ * @covers \MediaWiki\OAuthClient\SignatureMethod\Plaintext
  */
-class PlaintextTest extends \PHPUnit_Framework_TestCase {
+class PlaintextTest extends \PHPUnit\Framework\TestCase {
 	private $method;
 
 	public function setUp() {
