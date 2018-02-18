@@ -23,6 +23,7 @@
 		"docs": "https://www.mediawiki.org/wiki/oauthclient-php"
 	},
 	"require": {
+		"php": ">=5.5.9",
 		"psr/log": "1.0.*"
 	},
 	"autoload": {
