@@ -488,8 +488,6 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$method, $uri, $post_data = '', $auth_header = ''
 	 ) {
 		$_SERVER = [];
-		$_POST = [];
-		$_GET = [];
 
 		$method = strtoupper( $method );
 
@@ -513,11 +511,9 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$_SERVER['SCRIPT_NAME'] = $path;
 		$_SERVER['REQUEST_URI'] = $path . '?' . $query;
 		$_SERVER['QUERY_STRING'] = $query . '';
-		parse_str( $query, $_GET );
 
 		if ( $method == 'POST' ) {
 			$_SERVER['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
-			$_POST = parse_str( $post_data );
 			Request::$POST_INPUT = 'data:application/x-www-form-urlencoded,'.$post_data;
 		}
 
