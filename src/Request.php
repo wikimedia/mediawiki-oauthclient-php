@@ -60,7 +60,7 @@ class Request {
 	/**
 	 * @param string $method
 	 * @param string $url
-	 * @param array $parameters
+	 * @param array|null $parameters
 	 */
 	function __construct( $method, $url, $parameters = null ) {
 		$parameters = $parameters ?: [];
@@ -76,9 +76,9 @@ class Request {
 	/**
 	 * Attempt to build up a request from what was passed to the server
 	 *
-	 * @param string $method
-	 * @param string $url
-	 * @param array $params
+	 * @param string|null $method
+	 * @param string|null $url
+	 * @param array|null $params
 	 * @return Request
 	 */
 	public static function fromRequest(
@@ -137,7 +137,7 @@ class Request {
 	 * @param Token|null $token
 	 * @param string $method
 	 * @param string $url
-	 * @param array $parameters
+	 * @param array|null $parameters
 	 * @return Request
 	 */
 	public static function fromConsumerAndToken(
