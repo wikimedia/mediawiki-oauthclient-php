@@ -62,13 +62,13 @@ echo "Authenticated user {$ident->username}\n";
 echo "Getting user info: ";
 echo $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/wiki/api.php?action=query&meta=userinfo&uiprop=rights&format=json'
+    'https://localhost/w/api.php?action=query&meta=userinfo&uiprop=rights&format=json'
 );
 
 // Make an Edit
 $editToken = json_decode( $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/wiki/api.php?action=tokens&format=json'
+    'https://localhost/w/api.php?action=tokens&format=json'
 ) )->tokens->edittoken;
 
 $apiParams = array(
@@ -85,7 +85,7 @@ $client->setExtraParams( $apiParams ); // sign these too
 
 echo $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/wiki/api.php',
+    'https://localhost/w/api.php',
     true,
     $apiParams
 );
