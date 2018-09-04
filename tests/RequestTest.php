@@ -395,7 +395,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$params .= '&oauth_token=nnch734d00sl2jdk&oauth_timestamp=1191242096';
 		$params .= '&oauth_nonce=kllo9940pd9333jh';
 		$params .= '&oauth_signature=ignored&oauth_signature_method=HMAC-SHA1';
-		static::buildRequest( 'GET', 'http://photos.example.net/photos?'.$params );
+		static::buildRequest( 'GET', 'http://photos.example.net/photos?' . $params );
 		$this->assertEquals(
 			'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation'
 			. '.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%'
@@ -411,7 +411,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 			. '&oauth_token=nnch734d00sl2jdk'
 			. '&oauth_timestamp=1191242096&oauth_nonce=kllo9940pd9333jh'
 			. '&oauth_signature=ignored&oauth_signature_method=HMAC-SHA1';
-		static::buildRequest( 'GET', 'http://photos.example.net/photos?'.$params );
+		static::buildRequest( 'GET', 'http://photos.example.net/photos?' . $params );
 		$r = Request::fromRequest();
 
 		$cons = new Consumer( 'key', 'kd94hf93k423kf44' );
@@ -434,7 +434,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 			. '&oauth_timestamp=1191242096&oauth_nonce=kllo9940pd9333jh'
 			. '&oauth_signature=__ignored__&oauth_signature_method=HMAC-SHA1';
 		static::buildRequest( 'GET',
-			'http://photos.example.net/photos?'.$params );
+			'http://photos.example.net/photos?' . $params );
 		$r = Request::fromRequest();
 
 		$cons = new Consumer( 'key', 'kd94hf93k423kf44' );
@@ -514,7 +514,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 
 		if ( $method == 'POST' ) {
 			$_SERVER['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
-			Request::$POST_INPUT = 'data:application/x-www-form-urlencoded,'.$post_data;
+			Request::$POST_INPUT = 'data:application/x-www-form-urlencoded,' . $post_data;
 		}
 
 		if ( $auth_header != '' ) {
