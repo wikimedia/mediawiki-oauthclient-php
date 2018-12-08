@@ -92,7 +92,7 @@ class Client implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param string $key
 	 * @param string $secret
-	 * @return MediaWiki
+	 * @return Client
 	 */
 	public static function newFromKeyAndSecret( $url, $key, $secret ) {
 		$config = new ClientConfig( $url, true, true );
@@ -101,6 +101,8 @@ class Client implements LoggerAwareInterface {
 	}
 
 	/**
+	 * Set an extra param in the call that need to be signed.
+	 * This should only be needed for OAuth internals.
 	 * @param string $key
 	 * @param string $value
 	 */
@@ -110,12 +112,14 @@ class Client implements LoggerAwareInterface {
 
 	/**
 	 * @param array $params
+	 * @see setExtraParam
 	 */
 	public function setExtraParams( array $params ) {
 		$this->extraParams = $params;
 	}
 
 	/**
+	 * Set callback URL for OAuth handshake
 	 * @param string $url
 	 */
 	public function setCallback( $url ) {
