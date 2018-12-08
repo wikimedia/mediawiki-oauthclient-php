@@ -19,12 +19,15 @@ Usage
 -----
 
 <pre lang="php">
+require_once 'vendor/autoload.php';
+
 use MediaWiki\OAuthClient\ClientConfig;
 use MediaWiki\OAuthClient\Consumer;
 use MediaWiki\OAuthClient\Client;
 
-$endpoint = 'https://localhost/w/index.php?title=Special:OAuth';
-$redir = 'https://localhost/view/Special:OAuth?';
+$baseUrl = 'http://localhost';
+$endpoint = "$baseUrl/w/index.php?title=Special:OAuth";
+$redir = "$baseUrl/view/Special:OAuth?";
 $consumerKey = 'your key here';
 $consumerSecret = 'your shared secret here';
 
@@ -33,7 +36,7 @@ $conf->setRedirURL( $redir );
 $conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
 
 $client = new Client( $conf );
-$client->setCallback( 'https://localhost/oauth/callback' );
+$client->setCallback( "$baseUrl/oauth/callback" );
 
 // Step 1 = Get a request token
 list( $next, $token ) = $client->initiate();
@@ -62,13 +65,13 @@ echo "Authenticated user {$ident->username}\n";
 echo "Getting user info: ";
 echo $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/w/api.php?action=query&meta=userinfo&uiprop=rights&format=json'
+    "$baseUrl/w/api.php?action=query&meta=userinfo&uiprop=rights&format=json"
 );
 
 // Make an Edit
 $editToken = json_decode( $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/w/api.php?action=tokens&format=json'
+    "$baseUrl/w/api.php?action=tokens&format=json"
 ) )->tokens->edittoken;
 
 $apiParams = array(
@@ -81,11 +84,9 @@ $apiParams = array(
     'format' => 'json',
 );
 
-$client->setExtraParams( $apiParams ); // sign these too
-
 echo $client->makeOAuthCall(
     $accessToken,
-    'https://localhost/w/api.php',
+    "$baseUrl/w/api.php",
     true,
     $apiParams
 );
