@@ -69,7 +69,7 @@ class ClientConfig {
 	 * @param string $url OAuth endpoint URL
 	 * @param bool $verifySSL
 	 */
-	function __construct( $url, $verifySSL = true ) {
+	public function __construct( $url, $verifySSL = true ) {
 		$this->endpointURL = $url;
 		$this->verifySSL = $verifySSL;
 

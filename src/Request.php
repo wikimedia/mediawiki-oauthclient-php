@@ -62,7 +62,7 @@ class Request {
 	 * @param string $url
 	 * @param array|null $parameters
 	 */
-	function __construct( $method, $url, $parameters = null ) {
+	public function __construct( $method, $url, $parameters = null ) {
 		$parameters = $parameters ?: [];
 		$parameters = array_merge(
 			Util::parseParameters( parse_url( $url, PHP_URL_QUERY ) ),

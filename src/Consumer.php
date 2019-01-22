@@ -42,12 +42,12 @@ class Consumer {
 	 */
 	public $secret;
 
-	function __construct( $key, $secret ) {
+	public function __construct( $key, $secret ) {
 		$this->key = $key;
 		$this->secret = $secret;
 	}
 
-	function __toString() {
+	public function __toString() {
 		return __CLASS__ . "[key={$this->key},secret={$this->secret}]";
 	}
 }

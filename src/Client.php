@@ -73,7 +73,7 @@ class Client implements LoggerAwareInterface {
 	 * @param ClientConfig $config
 	 * @param LoggerInterface|null $logger
 	 */
-	function __construct(
+	public function __construct(
 		ClientConfig $config,
 		LoggerInterface $logger = null
 	) {

@@ -46,7 +46,7 @@ class Token {
 	 * @param string $key The token
 	 * @param string $secret The token secret
 	 */
-	function __construct( $key, $secret ) {
+	public function __construct( $key, $secret ) {
 		$this->key = $key;
 		$this->secret = $secret;
 	}
@@ -57,12 +57,12 @@ class Token {
 	 *
 	 * @return string
 	 */
-	function toString() {
+	public function toString() {
 		return 'oauth_token=' . Util::urlencode( $this->key ) .
 			'&oauth_token_secret=' . Util::urlencode( $this->secret );
 	}
 
-	function __toString() {
+	public function __toString() {
 		return $this->toString();
 	}
 }
