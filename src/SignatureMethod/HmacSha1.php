@@ -42,7 +42,7 @@ use MediaWiki\OAuthClient\Util;
  *   - Chapter 9.2 ("HMAC-SHA1")
  */
 class HmacSha1 extends SignatureMethod {
-	function getName() {
+	public function getName() {
 		return 'HMAC-SHA1';
 	}
 
