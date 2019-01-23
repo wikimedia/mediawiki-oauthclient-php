@@ -131,27 +131,21 @@ class Client implements LoggerAwareInterface {
 	 * Redirect your authorizing users to the redirect url, and keep
 	 * track of the request token since you need to pass it into complete()
 	 *
-	 * @return array (redirect, request/temp token)
+	 * @return array [redirect, request/temp token]
+	 * @throws Exception When the server returns an error or a malformed response
 	 */
 	public function initiate() {
 		$initUrl = $this->config->endpointURL .
 			'/initiate&format=json&oauth_callback=' .
 			urlencode( $this->callbackUrl );
 		$data = $this->makeOAuthCall( null, $initUrl );
-		$return = json_decode( $data );
-		if ( $return === null ) {
-			$this->logger->error(
-				'Failed to decode server response as JSON: {response}',
-				 [ 'response' => $data ]
-			);
-			throw new Exception( 'Decoding server response failed.' );
-		}
+		$return = $this->decodeJson( $data );
 		if ( property_exists( $return, 'error' ) ) {
 			$this->logger->error(
 				'OAuth server error {error}: {msg}',
 				[ 'error' => $return->error, 'msg' => $return->message ]
 			);
-			throw new Exception( $return->message );
+			throw new Exception( "Server returned error: $return->message" );
 		}
 		if ( !property_exists( $return, 'oauth_callback_confirmed' ) ||
 			$return->oauth_callback_confirmed !== 'true'
@@ -174,12 +168,15 @@ class Client implements LoggerAwareInterface {
 	 * @param string $verifyCode Temp/request token obtained from initiate, or null if this
 	 *     object was used and the token is already set.
 	 * @return Token The access token
+	 * @throws Exception On malformed server response
 	 */
 	public function complete( Token $requestToken, $verifyCode ) {
 		$tokenUrl = $this->config->endpointURL . '/token&format=json';
 		$this->setExtraParam( 'oauth_verifier', $verifyCode );
+
 		$data = $this->makeOAuthCall( $requestToken, $tokenUrl );
-		$return = json_decode( $data );
+		$return = $this->decodeJson( $data );
+
 		$accessToken = new Token( $return->key, $return->secret );
 		// Cleanup after ourselves
 		$this->setExtraParams = [];
@@ -194,6 +191,7 @@ class Client implements LoggerAwareInterface {
 	 *
 	 * @param Token $accessToken Access token from complete()
 	 * @return object containing attributes of the user
+	 * @throws Exception On malformed server response or invalid JWT
 	 */
 	public function identify( Token $accessToken ) {
 		$identifyUrl = $this->config->endpointURL . '/identify';
@@ -221,6 +219,7 @@ class Client implements LoggerAwareInterface {
 	 * @param bool $isPost true if this should be a POST request
 	 * @param array|null $postFields POST parameters, only if $isPost is also true
 	 * @return string Body from the curl request
+	 * @throws Exception On curl failure
 	 */
 	public function makeOAuthCall(
 		/*Token*/ $token, $url, $isPost = false, array $postFields = null
@@ -276,6 +275,7 @@ class Client implements LoggerAwareInterface {
 	 * @param array $postFields
 	 * @param bool $hasFile
 	 * @return string
+	 * @throws Exception On curl failure
 	 */
 	private function makeCurlCall(
 		$url, $headers, $isPost, array $postFields = null, $hasFile = false
@@ -319,11 +319,12 @@ class Client implements LoggerAwareInterface {
 	 * @param string $JWT Json web token
 	 * @param string $secret
 	 * @return object
+	 * @throws Exception On invalid JWT signature
 	 */
 	private function decodeJWT( $JWT, $secret ) {
 		list( $headb64, $bodyb64, $sigb64 ) = explode( '.', $JWT );
-		$header = json_decode( $this->urlsafeB64Decode( $headb64 ) );
-		$payload = json_decode( $this->urlsafeB64Decode( $bodyb64 ) );
+		$header = $this->decodeJson( $this->urlsafeB64Decode( $headb64 ) );
+		$payload = $this->decodeJson( $this->urlsafeB64Decode( $bodyb64 ) );
 		$sig = $this->urlsafeB64Decode( $sigb64 );
 		// MediaWiki will only use sha256 hmac (HS256) for now. This check
 		// makes sure an attacker doesn't return a JWT with 'none' signature
@@ -403,4 +404,38 @@ class Client implements LoggerAwareInterface {
 		}
 		return $result == 0;
 	}
+
+	/**
+	 * Like json_decode but with sane error handling.
+	 * Assumes that null is not a valid value for the JSON string.
+	 * @param string $json
+	 * @return mixed
+	 * @throws Exception On invalid JSON
+	 */
+	private function decodeJson( $json ) {
+		$error = $errorMsg = null;
+		$return = json_decode( $json );
+		if ( $return === null && trim( $json ) !== 'null' ) {
+			$error = json_last_error();
+			$errorMsg = json_last_error_msg();
+		} elseif ( !$return || !is_object( $return ) ) {
+			$error = 128;
+			$errorMsg = 'Response must be an object';
+		}
+
+		if ( $error ) {
+			$this->logger->error(
+				'Failed to decode server response as JSON: {message}',
+				[
+					'response' => $json,
+					'code' => json_last_error(),
+					'message' => json_last_error_msg(),
+				]
+			);
+			throw new Exception( 'Decoding server response failed: ' . json_last_error_msg()
+				. " (Raw response: $json)" );
+		}
+		return $return;
+	}
+
 }
