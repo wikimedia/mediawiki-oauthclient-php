@@ -36,7 +36,7 @@
 		"jakub-onderka/php-console-highlighter": "0.4",
 		"phpunit/phpunit": "^5.7|^6.5",
 		"mediawiki/mediawiki-codesniffer": "23.0.0",
-		"mediawiki/minus-x": "0.3.2"
+		"mediawiki/minus-x": "0.3.1"
 	},
 	"autoload-dev": {
 		"psr-4": {
