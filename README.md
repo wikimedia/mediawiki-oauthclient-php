@@ -27,7 +27,7 @@ use MediaWiki\OAuthClient\Client;
 
 $baseUrl = 'http://localhost';
 $endpoint = "$baseUrl/w/index.php?title=Special:OAuth";
-$redir = "$baseUrl/view/Special:OAuth?";
+$redir = "$baseUrl/wiki/Special:OAuth/authorize?";
 $consumerKey = 'your key here';
 $consumerSecret = 'your shared secret here';
 
@@ -46,7 +46,7 @@ list( $next, $token ) = $client->initiate();
 // then use the 'oauth_verifier' GET parameter when the user is redirected
 // back to the callback url you registered.
 echo "Point your browser to: $next\n\n";
-print "Enter the verification code:\n";
+print "Enter the verification code (oauth_verifier URL parameter):\n";
 $fh = fopen( 'php://stdin', 'r' );
 $verifyCode = trim( fgets( $fh ) );
 
@@ -71,8 +71,8 @@ echo $client->makeOAuthCall(
 // Make an Edit
 $editToken = json_decode( $client->makeOAuthCall(
     $accessToken,
-    "$baseUrl/w/api.php?action=tokens&format=json"
-) )->tokens->edittoken;
+    "$baseUrl/w/api.php?action=query&meta=tokens&format=json"
+) )->query->tokens->csrftoken;
 
 $apiParams = array(
     'action' => 'edit',
