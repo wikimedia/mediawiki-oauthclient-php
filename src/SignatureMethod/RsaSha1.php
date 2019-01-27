@@ -42,22 +42,38 @@ use MediaWiki\OAuthClient\Token;
  *   - Chapter 9.3 ("RSA-SHA1")
  */
 abstract class RsaSha1 extends SignatureMethod {
+
+	/**
+	 * @return string
+	 */
 	public function getName() {
 		return "RSA-SHA1";
 	}
 
-	// Up to the SP to implement this lookup of keys. Possible ideas are:
-	// (1) do a lookup in a table of trusted certs keyed off of consumer
-	// (2) fetch via http using a url provided by the requester
-	// (3) some sort of specific discovery code based on request
-	// Either way should return a string representation of the certificate
+	/**
+	 * Up to the SP to implement this lookup of keys. Possible ideas are:
+	 * (1) do a lookup in a table of trusted certs keyed off of consumer
+	 * (2) fetch via http using a url provided by the requester
+	 * (3) some sort of specific discovery code based on request
+	 * Either way should return a string representation of the certificate
+	 * @param Request $request
+	 */
 	abstract protected function fetchPublicCert( Request $request );
 
-	// Up to the SP to implement this lookup of keys. Possible ideas are:
-	// (1) do a lookup in a table of trusted certs keyed off of consumer
-	// Either way should return a string representation of the certificate
+	/**
+	 * Up to the SP to implement this lookup of keys. Possible ideas are:
+	 * (1) do a lookup in a table of trusted certs keyed off of consumer
+	 * Either way should return a string representation of the certificate
+	 * @param Request $request
+	 */
 	abstract protected function fetchPrivateCert( Request $request );
 
+	/**
+	 * @param Request $request
+	 * @param Consumer $consumer
+	 * @param Token|null $token
+	 * @return string
+	 */
 	public function buildSignature(
 		Request $request,
 		Consumer $consumer,
@@ -81,6 +97,13 @@ abstract class RsaSha1 extends SignatureMethod {
 		return base64_encode( $signature );
 	}
 
+	/**
+	 * @param Request $request
+	 * @param Consumer $consumer
+	 * @param Token|null $token
+	 * @param string $signature
+	 * @return bool
+	 */
 	public function checkSignature(
 		Request $request,
 		Consumer $consumer,

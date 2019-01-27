@@ -30,8 +30,8 @@ namespace MediaWiki\OAuthClient;
 class Util {
 
 	/**
-	 * @param string $input
-	 * @return string
+	 * @param string|string[] $input
+	 * @return string|string[]
 	 */
 	public static function urlencode( $input ) {
 		if ( is_array( $input ) ) {

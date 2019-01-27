@@ -42,6 +42,10 @@ class Consumer {
 	 */
 	public $secret;
 
+	/**
+	 * @param string $key
+	 * @param string $secret
+	 */
 	public function __construct( $key, $secret ) {
 		$this->key = $key;
 		$this->secret = $secret;

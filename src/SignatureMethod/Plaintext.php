@@ -40,6 +40,10 @@ use MediaWiki\OAuthClient\Util;
  *   - Chapter 9.4 ("PLAINTEXT")
  */
 class Plaintext extends SignatureMethod {
+
+	/**
+	 * @return string
+	 */
 	public function getName() {
 		return 'PLAINTEXT';
 	}

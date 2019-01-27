@@ -162,6 +162,11 @@ class Request {
 		return new self( $method, $url, $parameters );
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $value
+	 * @param bool $allow_duplicates
+	 */
 	public function setParameter( $name, $value, $allow_duplicates = true ) {
 		if ( $allow_duplicates && isset( $this->parameters[$name] ) ) {
 			// We have already added parameter(s) with this name, so add to
@@ -320,7 +325,16 @@ class Request {
 		return $this->toUrl();
 	}
 
-	public function signRequest( $signature_method, $consumer, $token ) {
+	/**
+	 * @param SignatureMethod $signature_method
+	 * @param Consumer $consumer
+	 * @param Token $token
+	 */
+	public function signRequest(
+		SignatureMethod $signature_method,
+		Consumer $consumer,
+		Token $token
+	) {
 		$this->setParameter(
 			'oauth_signature_method',
 			$signature_method->getName(),
@@ -332,7 +346,17 @@ class Request {
 		$this->setParameter( 'oauth_signature', $signature, false );
 	}
 
-	public function buildSignature( $signature_method, $consumer, $token ) {
+	/**
+	 * @param SignatureMethod $signature_method
+	 * @param Consumer $consumer
+	 * @param Token $token
+	 * @return mixed
+	 */
+	public function buildSignature(
+		SignatureMethod $signature_method,
+		Consumer $consumer,
+		Token $token
+	) {
 		$signature = $signature_method->buildSignature(
 			$this, $consumer, $token
 		);

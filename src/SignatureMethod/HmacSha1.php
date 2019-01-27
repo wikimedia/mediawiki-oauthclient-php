@@ -42,10 +42,20 @@ use MediaWiki\OAuthClient\Util;
  *   - Chapter 9.2 ("HMAC-SHA1")
  */
 class HmacSha1 extends SignatureMethod {
+
+	/**
+	 * @return string
+	 */
 	public function getName() {
 		return 'HMAC-SHA1';
 	}
 
+	/**
+	 * @param Request $request
+	 * @param Consumer $consumer
+	 * @param Token|null $token
+	 * @return string
+	 */
 	public function buildSignature(
 		Request $request,
 		Consumer $consumer,
