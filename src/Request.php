@@ -328,12 +328,12 @@ class Request {
 	/**
 	 * @param SignatureMethod $signature_method
 	 * @param Consumer $consumer
-	 * @param Token $token
+	 * @param Token|null $token
 	 */
 	public function signRequest(
 		SignatureMethod $signature_method,
 		Consumer $consumer,
-		Token $token
+		Token $token = null
 	) {
 		$this->setParameter(
 			'oauth_signature_method',
@@ -349,13 +349,13 @@ class Request {
 	/**
 	 * @param SignatureMethod $signature_method
 	 * @param Consumer $consumer
-	 * @param Token $token
+	 * @param Token|null $token
 	 * @return mixed
 	 */
 	public function buildSignature(
 		SignatureMethod $signature_method,
 		Consumer $consumer,
-		Token $token
+		Token $token = null
 	) {
 		$signature = $signature_method->buildSignature(
 			$this, $consumer, $token

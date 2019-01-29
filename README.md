@@ -18,79 +18,44 @@ Installation
 Usage
 -----
 
-<pre lang="php">
-require_once 'vendor/autoload.php';
+*For working example code, see the [demo](demo/) directory.*
 
-use MediaWiki\OAuthClient\ClientConfig;
-use MediaWiki\OAuthClient\Consumer;
-use MediaWiki\OAuthClient\Client;
+General usage is as follows:
 
-$baseUrl = 'http://localhost';
-$endpoint = "$baseUrl/w/index.php?title=Special:OAuth";
-$redir = "$baseUrl/wiki/Special:OAuth/authorize?";
-$consumerKey = 'your key here';
-$consumerSecret = 'your shared secret here';
+1. Create a new Client with consumer key that you've registered with the wiki:
 
-$conf = new ClientConfig( $endpoint );
-$conf->setRedirURL( $redir );
-$conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
+       $conf = new ClientConfig( 'https://example.org/w/index.php?title=Special:OAuth' );
+       $conf->setConsumer( new Consumer(
+           'e331e186b64a938591e7614170814a75',
+           '9b61abdfa2b88f05670af3919302b12bbc6a6e10'
+       ) );
+       $client = new Client( $conf );
 
-$client = new Client( $conf );
-$client->setCallback( "$baseUrl/oauth/callback" );
+2. Retrieve the authentication URL and the Request Token:
 
-// Step 1 = Get a request token
-list( $next, $token ) = $client->initiate();
+       list( $authUrl, $requestToken ) = $client->initiate();
 
-// Step 2 - Have the user authorize your app. Get a verifier code from
-// them. (if this was a webapp, you would redirect your user to $next,
-// then use the 'oauth_verifier' GET parameter when the user is redirected
-// back to the callback url you registered.
-echo "Point your browser to: $next\n\n";
-print "Enter the verification code (oauth_verifier URL parameter):\n";
-$fh = fopen( 'php://stdin', 'r' );
-$verifyCode = trim( fgets( $fh ) );
+3. Store the Request Token somewhere and send the user to the authentication URL.
 
-// Step 3 - Exchange the token and verification code for an access
-// token
-$accessToken = $client->complete( $token,  $verifyCode );
+4. When the user comes back from the wiki they'll arrive at your callback URL,
+   and the query string will contain an `oauth_verifier` key.
+   Use this to retrieve an Acccess Token:
 
-// You're done! You can now identify the user, and/or call the API with
-// $accessToken
+       $accessToken = $client->complete( $requestToken,  $_GET['oauth_verifier'] );
 
-// If we want to authenticate the user
-$ident = $client->identify( $accessToken );
-echo "Authenticated user {$ident->username}\n";
+5. Once you've got an Access Token you can store it
+   and use it to make authenticated requests to the wiki.
 
-// Do a simple API call
-echo "Getting user info: ";
-echo $client->makeOAuthCall(
-    $accessToken,
-    "$baseUrl/w/api.php?action=query&meta=userinfo&uiprop=rights&format=json"
-);
+   To get the user's identity:
 
-// Make an Edit
-$editToken = json_decode( $client->makeOAuthCall(
-    $accessToken,
-    "$baseUrl/w/api.php?action=query&meta=tokens&format=json"
-) )->query->tokens->csrftoken;
+       $ident = $client->identify( $accessToken );
 
-$apiParams = array(
-    'action' => 'edit',
-    'title' => 'Talk:Main_Page',
-    'section' => 'new',
-    'summary' => 'Hello World',
-    'text' => 'Hi',
-    'token' => $editToken,
-    'format' => 'json',
-);
+   To make any API call:
 
-echo $client->makeOAuthCall(
-    $accessToken,
-    "$baseUrl/w/api.php",
-    true,
-    $apiParams
-);
-</pre>
+       $userInfo = $client->makeOAuthCall(
+            $accessToken,
+            "https://example.org/w/api.php?action=query&meta=userinfo&uiprop=rights&format=json"
+       );
 
 
 Running tests

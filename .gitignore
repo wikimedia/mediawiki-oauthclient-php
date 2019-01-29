@@ -3,3 +3,5 @@
 /docs/
 /composer.phar
 /composer.lock
+/demo/config.php
+
