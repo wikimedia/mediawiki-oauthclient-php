@@ -322,7 +322,11 @@ class Client implements LoggerAwareInterface {
 	 * @throws Exception On invalid JWT signature
 	 */
 	private function decodeJWT( $JWT, $secret ) {
-		list( $headb64, $bodyb64, $sigb64 ) = explode( '.', $JWT );
+		$jwtParts = explode( '.', $JWT );
+		if ( count( $jwtParts ) !== 3 ) {
+			throw new Exception( "JWT has incorrect format. Received: $JWT" );
+		}
+		list( $headb64, $bodyb64, $sigb64 ) = $jwtParts;
 		$header = $this->decodeJson( $this->urlsafeB64Decode( $headb64 ) );
 		$payload = $this->decodeJson( $this->urlsafeB64Decode( $bodyb64 ) );
 		$sig = $this->urlsafeB64Decode( $sigb64 );
@@ -380,14 +384,21 @@ class Client implements LoggerAwareInterface {
 	/**
 	 * @param string $input
 	 * @return string
+	 * @throws Exception If the input could not be decoded.
 	 */
 	private function urlsafeB64Decode( $input ) {
+		// Pad the input with equals characters to the right to make it the correct length.
 		$remainder = strlen( $input ) % 4;
 		if ( $remainder ) {
 			$padlen = 4 - $remainder;
 			$input .= str_repeat( '=', $padlen );
 		}
-		return base64_decode( strtr( $input, '-_', '+/' ) );
+		// Decode the string.
+		$decoded = base64_decode( strtr( $input, '-_', '+/' ), true );
+		if ( false === $decoded ) {
+			throw new Exception( "Unable to decode base64 value: $input" );
+		}
+		return $decoded;
 	}
 
 	/**
