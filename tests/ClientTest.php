@@ -16,7 +16,7 @@ class ClientTest extends TestCase {
 	 * Get an instance of Client with the given method made public.
 	 * @param $methodName
 	 * @return array
-\	 */
+	 */
 	protected function getMethodToTest( $methodName ) {
 		$client = new Client( new ClientConfig( 'https://example.com/' ) );
 		$reflector = new ReflectionClass( $client );
