@@ -45,6 +45,7 @@ class TokenTest extends \PHPUnit\Framework\TestCase {
 			$token->toString()
 		);
 	}
+
 	public function testConvertToString() {
 		$token = new Token( 'token', 'secret' );
 		$this->assertEquals(
