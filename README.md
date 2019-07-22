@@ -6,7 +6,7 @@ mediawiki/oauthclient
 =====================
 
 PHP [OAuth][] client for use with [Wikipedia][] and other MediaWiki-based
-wikis running the [OAuth extension][].
+wikis running the [OAuth extension][]. It is not compatible with PHP 7.4.
 
 
 Installation
