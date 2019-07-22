@@ -411,7 +411,7 @@ class Client implements LoggerAwareInterface {
 		$result = strlen( $hash1 ) ^ strlen( $hash2 );
 		$len = min( strlen( $hash1 ), strlen( $hash2 ) ) - 1;
 		for ( $i = 0; $i < $len; $i++ ) {
-			$result |= ord( $hash1{$i} ) ^ ord( $hash2{$i} );
+			$result |= ord( $hash1[$i] ) ^ ord( $hash2[$i] );
 		}
 		return $result == 0;
 	}
