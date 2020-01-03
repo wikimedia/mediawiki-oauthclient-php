@@ -354,12 +354,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 			Request::fromRequest()->toHeader( 'test' ) );
 	}
 
-	/**
-	 * @expectedException \MediaWiki\OAuthClient\Exception
-	 */
 	public function testWontBuildHeaderWithArrayInput() {
 		static::buildRequest( 'POST', 'http://example.com',
 			'oauth_foo=bar&oauth_foo=baz' );
+		$this->expectException( \MediaWiki\OAuthClient\Exception::class );
 		Request::fromRequest()->toHeader();
 	}
 
