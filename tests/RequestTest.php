@@ -98,7 +98,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function testSetParameters() {
 		$request = new Request( '', '' );
-		$this->assertEquals( null, $request->getParameter( 'test' ),
+		$this->assertNull( $request->getParameter( 'test' ),
 			'Failed to assert that non-existing parameter is null' );
 
 		$request->setParameter( 'test', 'foo' );
@@ -119,13 +119,13 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function testUnsetParameter() {
 		$request = new Request( '', '' );
-		$this->assertEquals( null, $request->getParameter( 'test' ) );
+		$this->assertNull( $request->getParameter( 'test' ) );
 
 		$request->setParameter( 'test', 'foo' );
 		$this->assertEquals( 'foo', $request->getParameter( 'test' ) );
 
 		$request->unsetParameter( 'test' );
-		$this->assertEquals( null, $request->getParameter( 'test' ),
+		$this->assertNull( $request->getParameter( 'test' ),
 			'Failed to unset parameter'
 		 );
 	}
@@ -139,7 +139,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		 );
 		$this->assertEquals( 'POST', $request->getNormalizedMethod() );
 		$this->assertEquals( 'http://example.com', $request->getNormalizedUrl() );
-		$this->assertEquals( '1.0', $request->getParameter( 'oauth_version' ) );
+		$this->assertSame( '1.0', $request->getParameter( 'oauth_version' ) );
 		$this->assertEquals( $cons->key, $request->getParameter( 'oauth_consumer_key' ) );
 		$this->assertEquals( $token->key, $request->getParameter( 'oauth_token' ) );
 		$this->assertEquals( time(), $request->getParameter( 'oauth_timestamp' ) );
@@ -298,7 +298,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 
 	public function testBuildPostData() {
 		static::buildRequest( 'POST', 'http://example.com' );
-		$this->assertEquals( '', Request::fromRequest()->toPostData() );
+		$this->assertSame( '', Request::fromRequest()->toPostData() );
 
 		static::buildRequest( 'POST', 'http://example.com', 'foo=bar' );
 		$this->assertEquals( 'foo=bar', Request::fromRequest()->toPostData() );

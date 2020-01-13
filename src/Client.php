@@ -272,7 +272,7 @@ class Client implements LoggerAwareInterface {
 	 * @param string $url
 	 * @param array $headers
 	 * @param bool $isPost
-	 * @param array $postFields
+	 * @param array|null $postFields
 	 * @param bool $hasFile
 	 * @return string
 	 * @throws Exception On curl failure
