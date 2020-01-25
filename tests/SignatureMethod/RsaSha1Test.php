@@ -35,7 +35,7 @@ use MediaWiki\OAuthClient\Consumer;
 class RsaSha1Test extends \PHPUnit\Framework\TestCase {
 	private $method;
 
-	public function setUp() {
+	public function setUp() : void {
 		$cert = <<<EOD
 -----BEGIN PRIVATE KEY-----
 MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALRiMLAh9iimur8V

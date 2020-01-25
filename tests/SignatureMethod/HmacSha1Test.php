@@ -37,7 +37,7 @@ use MediaWiki\OAuthClient\Token;
 class HmacSha1Test extends \PHPUnit\Framework\TestCase {
 	private $method;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->method = new HmacSha1();
 	}
 

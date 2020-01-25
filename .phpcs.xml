@@ -2,7 +2,6 @@
 <ruleset name="mediawiki-oauthclient-php">
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
-		<exclude name="MediaWiki.Usage.PHPUnitTypeHints.MissingTypehint" />
 	</rule>
 
 	<rule ref="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals">

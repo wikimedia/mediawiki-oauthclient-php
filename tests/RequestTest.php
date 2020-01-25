@@ -38,6 +38,20 @@ use MediaWiki\OAuthClient\Token;
  */
 class RequestTest extends \PHPUnit\Framework\TestCase {
 
+	/**
+	 * Content of $_SERVER, to be restored after the test.
+	 * @var array
+	 */
+	private $oldServer;
+
+	public function setUp() : void {
+		$this->oldServer = $_SERVER;
+	}
+
+	public function tearDown() : void {
+		$_SERVER = $this->oldServer;
+	}
+
 	public function testCanGetSingleParameter() {
 		$request = new Request( '', '', [ 'test' => 'foo' ] );
 		$this->assertEquals( 'foo', $request->getParameter( 'test' ),
