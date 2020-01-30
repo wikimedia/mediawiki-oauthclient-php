@@ -4,4 +4,4 @@
 /composer.phar
 /composer.lock
 /demo/config.php
-
+/.phpunit.result.cache
