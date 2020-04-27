@@ -1,6 +1,5 @@
 [![Latest Stable Version]](https://packagist.org/packages/mediawiki/oauthclient)
 [![License]](https://github.com/wikimedia/mediawiki-oauthclient-php/blob/master/COPYING)
-[![Build Status]](https://travis-ci.org/wikimedia/mediawiki-oauthclient-php)
 
 mediawiki/oauthclient
 =====================
@@ -87,4 +86,3 @@ Changelog:
 [wikimedia/slimapp]: https://github.com/wikimedia/wikimedia-slimapp
 [Latest Stable Version]: https://img.shields.io/packagist/v/mediawiki/oauthclient.svg?style=flat
 [License]: https://img.shields.io/packagist/l/mediawiki/oauthclient.svg?style=flat
-[Build Status]: https://img.shields.io/travis/wikimedia/mediawiki-oauthclient-php.svg?style=flat
