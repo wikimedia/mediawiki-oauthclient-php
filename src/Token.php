@@ -33,12 +33,12 @@ namespace MediaWiki\OAuthClient;
  */
 class Token {
 	/**
-	 * @var string $key
+	 * @var string
 	 */
 	public $key;
 
 	/**
-	 * @var string $secret
+	 * @var string
 	 */
 	public $secret;
 

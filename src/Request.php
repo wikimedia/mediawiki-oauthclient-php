@@ -32,17 +32,17 @@ namespace MediaWiki\OAuthClient;
  */
 class Request {
 	/**
-	 * @var array $parameters
+	 * @var array
 	 */
 	protected $parameters;
 
 	/**
-	 * @var string $method
+	 * @var string
 	 */
 	protected $method;
 
 	/**
-	 * @var string $url
+	 * @var string
 	 */
 	protected $url;
 

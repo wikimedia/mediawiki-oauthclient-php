@@ -29,39 +29,39 @@ namespace MediaWiki\OAuthClient;
 class ClientConfig {
 	/**
 	 * Url to the OAuth special page
-	 * @var string $endpointURL
+	 * @var string
 	 */
 	public $endpointURL;
 
 	/**
 	 * Canonical server url, used to check /identify's iss.
 	 * A default value will be created based on the provided $endpointURL.
-	 * @var string $canonicalServerUrl
+	 * @var string
 	 */
 	public $canonicalServerUrl;
 
 	/**
 	 * Url that the user is sent to. Can be different from $endpointURL to
 	 * play nice with MobileFrontend, etc.
-	 * @var string|null $redirURL
+	 * @var string|null
 	 */
 	public $redirURL = null;
 
 	/**
 	 * Use https when calling the server.
-	 * @var bool $useSSL
+	 * @var bool
 	 */
 	public $useSSL;
 
 	/**
 	 * If you're testing against a server with self-signed certificates, you
 	 * can turn this off but don't do this in production.
-	 * @var bool $verifySSL
+	 * @var bool
 	 */
 	public $verifySSL;
 
 	/**
-	 * @var Consumer|null $consumer
+	 * @var Consumer|null
 	 */
 	public $consumer = null;
 
