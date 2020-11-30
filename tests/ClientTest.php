@@ -14,7 +14,7 @@ class ClientTest extends TestCase {
 
 	/**
 	 * Get an instance of Client with the given method made public.
-	 * @param $methodName
+	 * @param string $methodName
 	 * @return array
 	 */
 	protected function getMethodToTest( $methodName ) {

@@ -35,6 +35,8 @@ use MediaWiki\OAuthClient\Token;
  * @covers \MediaWiki\OAuthClient\SignatureMethod\Plaintext
  */
 class PlaintextTest extends \PHPUnit\Framework\TestCase {
+
+	/** @var Plaintext */
 	private $method;
 
 	public function setUp() : void {

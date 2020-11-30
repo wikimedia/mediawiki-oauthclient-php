@@ -27,6 +27,7 @@ use MediaWiki\OAuthClient\SignatureMethod\HmacSha1;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use stdClass;
 
 /**
  * MediaWiki OAuth client.
@@ -38,7 +39,7 @@ class Client implements LoggerAwareInterface {
 	 * for clock drift.
 	 * @var int
 	 */
-	const IAT_TOLERANCE = 2;
+	public const IAT_TOLERANCE = 2;
 
 	/**
 	 * @var LoggerInterface
@@ -190,7 +191,7 @@ class Client implements LoggerAwareInterface {
 	 * know their username, groups, rights, etc in MediaWiki.
 	 *
 	 * @param Token $accessToken Access token from complete()
-	 * @return object containing attributes of the user
+	 * @return stdClass An object containing attributes of the user
 	 * @throws Exception On malformed server response or invalid JWT
 	 */
 	public function identify( Token $accessToken ) {
@@ -318,7 +319,7 @@ class Client implements LoggerAwareInterface {
 	/**
 	 * @param string $JWT Json web token
 	 * @param string $secret
-	 * @return object
+	 * @return stdClass
 	 * @throws Exception On invalid JWT signature
 	 */
 	private function decodeJWT( $JWT, $secret ) {
@@ -343,7 +344,7 @@ class Client implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param object $identity
+	 * @param stdClass $identity
 	 * @param string $consumerKey
 	 * @param string $expectedConnonicalServer
 	 * @param string $nonce
@@ -395,7 +396,7 @@ class Client implements LoggerAwareInterface {
 		}
 		// Decode the string.
 		$decoded = base64_decode( strtr( $input, '-_', '+/' ), true );
-		if ( false === $decoded ) {
+		if ( $decoded === false ) {
 			throw new Exception( "Unable to decode base64 value: $input" );
 		}
 		return $decoded;

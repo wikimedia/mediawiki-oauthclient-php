@@ -28,11 +28,16 @@
 namespace MediaWiki\OAuthClient\Test\SignatureMethod;
 
 use MediaWiki\OAuthClient\Consumer;
+use MediaWiki\OAuthClient\SignatureMethod\RsaSha1;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \MediaWiki\OAuthClient\SignatureMethod\RsaSha1
  */
-class RsaSha1Test extends \PHPUnit\Framework\TestCase {
+class RsaSha1Test extends TestCase {
+
+	/** @var MockObject|RsaSha1 */
 	private $method;
 
 	public function setUp() : void {
