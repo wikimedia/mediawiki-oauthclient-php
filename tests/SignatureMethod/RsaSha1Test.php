@@ -98,15 +98,13 @@ EOD;
 		// Tests taken from http://wiki.oauth.net/TestCases section 9.3
 		// ("RSA-SHA1")
 		$request = $this->mockRequest(
-			// @codingStandardsIgnoreStart Line exceeds 100 characters
+			// phpcs:ignore Generic.Files.LineLength
 			'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacaction.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3D13917289812797014437%26oauth_signature_method%3DRSA-SHA1%26oauth_timestamp%3D1196666512%26oauth_version%3D1.0%26size%3Doriginal'
-			// @codingStandardsIgnoreEnd
 		);
 		$consumer = new Consumer( 'dpf43f3p2l4k3l03', '__unused__' );
 		$token = null;
-		// @codingStandardsIgnoreStart Line exceeds 100 characters
+		// phpcs:ignore Generic.Files.LineLength
 		$signature = 'jvTp/wX1TYtByB1m+Pbyo0lnCOLIsyGCH7wke8AUs3BpnwZJtAuEJkvQL2/9n4s5wUmUl4aCI4BwpraNx4RtEXMe5qg5T1LVTGliMRpKasKsW//e+RinhejgCuzoH26dyF8iY2ZZ/5D1ilgeijhV/vBka5twt399mXwaYdCwFYE=';
-		// @codingStandardsIgnoreEnd
 		$this->assertEquals( $signature,
 			$this->method->buildSignature( $request, $consumer, $token )
 		);
@@ -122,15 +120,13 @@ EOD;
 		// Tests taken from http://wiki.oauth.net/TestCases section 9.3
 		// ("RSA-SHA1")
 		$request = $this->mockRequest(
-			// @codingStandardsIgnoreStart Line exceeds 100 characters
+			// phpcs:ignore Generic.Files.LineLength
 			'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacaction.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3D13917289812797014437%26oauth_signature_method%3DRSA-SHA1%26oauth_timestamp%3D1196666512%26oauth_version%3D1.0%26size%3Doriginal'
-			// @codingStandardsIgnoreEnd
 		);
 		$consumer = new Consumer( 'dpf43f3p2l4k3l03', '__unused__' );
 		$token = null;
-		// @codingStandardsIgnoreStart Line exceeds 100 characters
+		// phpcs:ignore Generic.Files.LineLength
 		$signature = 'jvTp/wX1TYtByB1m+Pbyo0lnCOLIsyGCH7wke8AUs3BpnwZJtAuEJkvQL2/9n4s5wUmUl4aCI4BwpraNx4RtEXMe5qg5T1LVTGliMRpKasKsW//e+RinhejgCuzoH26dyF8iY2ZZ/5D1ilgeijhV/vBka5twt399mXwaYdCwFYE=';
-		// @codingStandardsIgnoreEnd
 		$this->assertTrue( $this->method->checkSignature(
 			$request, $consumer, $token, $signature
 		) );
