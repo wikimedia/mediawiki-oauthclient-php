@@ -75,7 +75,7 @@ EOD;
 
 		$this->method = $this->getMockBuilder(
 			'MediaWiki\OAuthClient\SignatureMethod\RsaSha1' )
-			->setMethods( [ 'fetchPrivateCert', 'fetchPublicCert' ] )
+			->onlyMethods( [ 'fetchPrivateCert', 'fetchPublicCert' ] )
 			->getMock();
 
 		$this->method->method( 'fetchPrivateCert' )
