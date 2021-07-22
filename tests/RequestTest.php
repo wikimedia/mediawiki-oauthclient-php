@@ -44,11 +44,11 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 	 */
 	private $oldServer;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		$this->oldServer = $_SERVER;
 	}
 
-	public function tearDown() : void {
+	public function tearDown(): void {
 		$_SERVER = $this->oldServer;
 	}
 

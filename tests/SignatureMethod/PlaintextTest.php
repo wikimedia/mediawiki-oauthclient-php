@@ -39,7 +39,7 @@ class PlaintextTest extends \PHPUnit\Framework\TestCase {
 	/** @var Plaintext */
 	private $method;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		$this->method = new Plaintext();
 	}
 

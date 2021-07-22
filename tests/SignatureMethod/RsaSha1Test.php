@@ -40,7 +40,7 @@ class RsaSha1Test extends TestCase {
 	/** @var MockObject|RsaSha1 */
 	private $method;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		$cert = <<<EOD
 -----BEGIN PRIVATE KEY-----
 MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALRiMLAh9iimur8V

@@ -47,13 +47,13 @@ class Request {
 	protected $url;
 
 	/**
-	 * @var string $version
+	 * @var string
 	 */
 	public static $version = '1.0';
 
 	/**
 	 * Used for tests.
-	 * @var string $POST_INPUT
+	 * @var string
 	 */
 	public static $POST_INPUT = 'php://input';
 

@@ -39,7 +39,7 @@ class HmacSha1Test extends \PHPUnit\Framework\TestCase {
 	/** @var HmacSha1 */
 	private $method;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		$this->method = new HmacSha1();
 	}
 
