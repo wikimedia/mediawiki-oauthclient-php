@@ -142,7 +142,7 @@ class Request {
 	 */
 	public static function fromConsumerAndToken(
 		Consumer $consumer,
-		/*Token*/ $token = null,
+		?Token $token,
 		$method,
 		$url,
 		array $parameters = null

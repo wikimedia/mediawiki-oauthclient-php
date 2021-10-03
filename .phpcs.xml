@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="mediawiki-oauthclient-php">
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="PEAR.Functions.ValidDefaultValue.NotAtEnd" />
-	</rule>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
 	<rule ref="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals">
 		<exclude-pattern>demo/*</exclude-pattern>
