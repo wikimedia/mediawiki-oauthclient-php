@@ -66,6 +66,13 @@ class ClientConfig {
 	public $consumer = null;
 
 	/**
+	 * User agent to use with requests
+	 *
+	 * @var string|null
+	 */
+	public $userAgent = null;
+
+	/**
 	 * @param string $url OAuth endpoint URL
 	 * @param bool $verifySSL
 	 */
@@ -95,5 +102,14 @@ class ClientConfig {
 	public function setConsumer( Consumer $consumer ) {
 		$this->consumer = $consumer;
 		return $this;
+	}
+
+	/**
+	 *
+	 * @param string|null $userAgent
+	 * @return void
+	 */
+	public function setUserAgent( ?string $userAgent ) {
+		$this->userAgent = $userAgent;
 	}
 }

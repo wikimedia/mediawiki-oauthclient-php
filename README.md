@@ -21,13 +21,14 @@ Usage
 
 General usage is as follows:
 
-1. Create a new Client with consumer key that you've registered with the wiki:
+1. Create a new Client with consumer key that you've registered with the wiki. Setting an user agent is highly encouraged.
 
        $conf = new ClientConfig( 'https://example.org/w/index.php?title=Special:OAuth' );
        $conf->setConsumer( new Consumer(
            'e331e186b64a938591e7614170814a75',
            '9b61abdfa2b88f05670af3919302b12bbc6a6e10'
        ) );
+       $conf->setUserAgent( 'MyCoolApp MediaWikiOAuthClient/1.0' );
        $client = new Client( $conf );
 
 2. Retrieve the authentication URL and the Request Token:

@@ -19,6 +19,7 @@ $apiUrl = preg_replace( '/index\.php.*/', 'api.php', $oauthUrl );
 // Configure the OAuth client with the URL and consumer details.
 $conf = new ClientConfig( $oauthUrl );
 $conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
+$conf->setUserAgent( 'DemoApp MediaWikiOAuthClient/1.0' );
 $client = new Client( $conf );
 
 // Load the Access Token from the session.

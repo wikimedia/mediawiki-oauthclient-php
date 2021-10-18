@@ -19,6 +19,7 @@ require_once __DIR__ . '/config.php';
 // Configure the OAuth client with the URL and consumer details.
 $conf = new ClientConfig( $oauthUrl );
 $conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
+$conf->setUserAgent( 'DemoApp MediaWikiOAuthClient/1.0' );
 $client = new Client( $conf );
 
 // Get the Request Token's details from the session and create a new Token object.

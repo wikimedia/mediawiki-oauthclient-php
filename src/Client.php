@@ -271,7 +271,7 @@ class Client implements LoggerAwareInterface {
 
 	/**
 	 * @param string $url
-	 * @param array $headers
+	 * @param array $authorizationHeader
 	 * @param bool $isPost
 	 * @param array|null $postFields
 	 * @param bool $hasFile
@@ -279,7 +279,7 @@ class Client implements LoggerAwareInterface {
 	 * @throws Exception On curl failure
 	 */
 	private function makeCurlCall(
-		$url, $headers, $isPost, array $postFields = null, $hasFile = false
+		$url, $authorizationHeader, $isPost, array $postFields = null, $hasFile = false
 	) {
 		if ( !$hasFile && $postFields ) {
 			$postFields = http_build_query( $postFields );
@@ -289,7 +289,15 @@ class Client implements LoggerAwareInterface {
 		curl_setopt( $ch, CURLOPT_URL, (string)$url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, [ $headers ] );
+
+		$headers = [
+			$authorizationHeader
+		];
+		if ( $this->config->userAgent !== null ) {
+			$headers[] = 'User-Agent: ' . $this->config->userAgent;
+		}
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
+
 		if ( $isPost ) {
 			curl_setopt( $ch, CURLOPT_POST, true );
 			curl_setopt( $ch, CURLOPT_POSTFIELDS, $postFields );
