@@ -11,14 +11,14 @@ use MediaWiki\OAuthClient\Token;
 header( 'Content-type: text/plain' );
 
 // Get the wiki URL and OAuth consumer details from the config file.
-$config = require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/config.php';
 
 // Make the api.php URL from the OAuth URL.
-$apiUrl = preg_replace( '/index\.php.*/', 'api.php', $config['url'] );
+$apiUrl = preg_replace( '/index\.php.*/', 'api.php', $oauthUrl );
 
 // Configure the OAuth client with the URL and consumer details.
-$conf = new ClientConfig( $config['url'] );
-$conf->setConsumer( new Consumer( $config['consumer_key'], $config['consumer_secret'] ) );
+$conf = new ClientConfig( $oauthUrl );
+$conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
 $client = new Client( $conf );
 
 // Load the Access Token from the session.

@@ -16,11 +16,11 @@ if ( !file_exists( $configFile ) ) {
 }
 
 // Get the wiki URL and OAuth consumer details from the config file.
-$config = require_once $configFile;
+require_once $configFile;
 
 // Configure the OAuth client with the URL and consumer details.
-$conf = new ClientConfig( $config['url'] );
-$conf->setConsumer( new Consumer( $config['consumer_key'], $config['consumer_secret'] ) );
+$conf = new ClientConfig( $oauthUrl );
+$conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
 $client = new Client( $conf );
 
 // Send an HTTP request to the wiki to get the authorization URL and a Request Token.

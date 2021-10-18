@@ -14,11 +14,11 @@ if ( !isset( $_GET['oauth_verifier'] ) ) {
 }
 
 // Get the wiki URL and OAuth consumer details from the config file.
-$config = require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/config.php';
 
 // Configure the OAuth client with the URL and consumer details.
-$conf = new ClientConfig( $config['url'] );
-$conf->setConsumer( new Consumer( $config['consumer_key'], $config['consumer_secret'] ) );
+$conf = new ClientConfig( $oauthUrl );
+$conf->setConsumer( new Consumer( $consumerKey, $consumerSecret ) );
 $client = new Client( $conf );
 
 // Get the Request Token's details from the session and create a new Token object.
