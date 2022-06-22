@@ -83,7 +83,7 @@ class Client implements LoggerAwareInterface {
 	}
 
 	/**
-	 * @param LoggerInterface $logger
+	 * @inheritDoc
 	 */
 	public function setLogger( LoggerInterface $logger ) {
 		$this->logger = $logger;
