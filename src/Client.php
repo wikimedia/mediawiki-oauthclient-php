@@ -177,10 +177,14 @@ class Client implements LoggerAwareInterface {
 
 		$data = $this->makeOAuthCall( $requestToken, $tokenUrl );
 		$return = $this->decodeJson( $data );
-
-		$accessToken = new Token( $return->key, $return->secret );
 		// Cleanup after ourselves
 		$this->setExtraParams = [];
+
+		if (!isset( $return->key, $return->secret )) {
+			throw new Exception( "JSON did not decode in complete" );	
+		}
+		$accessToken = new Token( $return->key, $return->secret );
+
 		return $accessToken;
 	}
 
