@@ -23,7 +23,7 @@
 		"docs": "https://www.mediawiki.org/wiki/oauthclient-php"
 	},
 	"require": {
-		"php": ">=7.2.9",
+		"php": ">=7.4",
 		"ext-curl": "*",
 		"ext-json": "*",
 		"psr/log": "^1.0"
