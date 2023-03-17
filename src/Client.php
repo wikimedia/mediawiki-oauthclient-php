@@ -178,6 +178,14 @@ class Client implements LoggerAwareInterface {
 		$data = $this->makeOAuthCall( $requestToken, $tokenUrl );
 		$return = $this->decodeJson( $data );
 
+		if (
+			!property_exists( $return, 'key' ) ||
+			!property_exists( $return, 'secret' )
+		) {
+			throw new Exception(
+				"Server response missing expected values (Raw response: $data)"
+			);
+		}
 		$accessToken = new Token( $return->key, $return->secret );
 		// Cleanup after ourselves
 		$this->setExtraParams = [];
