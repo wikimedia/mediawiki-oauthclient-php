@@ -69,16 +69,7 @@ History
 -------
 The code is a refactored version of [Stype/mwoauth-php][], which in turn is
 partially based on [Andy Smith's OAuth library][]. Some code is taken from
-[wikimedia/slimapp][].
-
-Changelog:
-
-* **1.2**, 2021-10-21 - Allow users to set a User-Agent.
-* **1.1**, 2020-01-30 - PHP 7.4 support.
-* **1.0**, 2019-01-23 — First stable release.
-  - Improved documentation and error handling.
-  - Added file-upload functionality.
-* **0.1**, 2015-10-23 — First release.
+[wikimedia/slimapp][]. See CHANGELOG.md for more details.
 
 ---
 [OAuth]: https://en.wikipedia.org/wiki/OAuth
