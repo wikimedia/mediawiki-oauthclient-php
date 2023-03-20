@@ -169,7 +169,7 @@ class Client implements LoggerAwareInterface {
 	 * @param string $verifyCode Temp/request token obtained from initiate, or null if this
 	 *     object was used and the token is already set.
 	 * @return Token The access token
-	 * @throws Exception On malformed server response
+	 * @throws Exception On failed handshakes
 	 */
 	public function complete( Token $requestToken, $verifyCode ) {
 		$tokenUrl = $this->config->endpointURL . '/token&format=json';
@@ -178,10 +178,22 @@ class Client implements LoggerAwareInterface {
 		$data = $this->makeOAuthCall( $requestToken, $tokenUrl );
 		$return = $this->decodeJson( $data );
 
-		if (
+		if ( property_exists( $return, 'error' ) ) {
+			$this->logger->error(
+				'OAuth server error {error}: {msg}',
+				[ 'error' => $return->error, 'msg' => $return->message ]
+			);
+			throw new Exception(
+				"Handshake error: $return->message ($return->error)"
+			);
+		} elseif (
 			!property_exists( $return, 'key' ) ||
 			!property_exists( $return, 'secret' )
 		) {
+			$this->logger->error(
+				'Could not parse OAuth server response: {data}',
+				[ 'data' => $data ]
+			);
 			throw new Exception(
 				"Server response missing expected values (Raw response: $data)"
 			);
