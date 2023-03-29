@@ -1,8 +1,8 @@
 Changelog
 =========
 
-Unreleased
-----------
+2.0 - 2023-03-30
+----------------
 * **BREAKING CHANGE** Dropped PHP 7.2 and PHP 7.3 support.
 * [T332429] - Added check for expected values in token return.
 * Moved history to CHANGELOG.md
