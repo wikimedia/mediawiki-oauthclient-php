@@ -56,6 +56,11 @@ class Request {
 	 * @var string
 	 */
 	public static $POST_INPUT = 'php://input';
+	
+	/**
+	 * @var string
+	 */
+	public $base_string;
 
 	/**
 	 * @param string $method
