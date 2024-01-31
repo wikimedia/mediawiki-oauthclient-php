@@ -166,14 +166,14 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 	public function testBuildRequestFromPost() {
 		static::buildRequest(
 			'POST', 'http://testbed/test', 'foo=bar&baz=blargh' );
-		$this->assertEquals( [ 'foo' => 'bar','baz' => 'blargh' ],
+		$this->assertEquals( [ 'foo' => 'bar', 'baz' => 'blargh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to parse POST parameters' );
 	}
 
 	public function testBuildRequestFromGet() {
 		static::buildRequest( 'GET', 'http://testbed/test?foo=bar&baz=blargh' );
-		$this->assertEquals( [ 'foo' => 'bar','baz' => 'blargh' ],
+		$this->assertEquals( [ 'foo' => 'bar', 'baz' => 'blargh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to parse GET parameters' );
 	}
@@ -182,7 +182,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$test_header = 'OAuth realm="",oauth_foo=bar,oauth_baz="bla,rgh"';
 		static::buildRequest( 'POST', 'http://testbed/test', '', $test_header );
 		$this->assertEquals(
-			[ 'oauth_foo' => 'bar','oauth_baz' => 'bla,rgh' ],
+			[ 'oauth_foo' => 'bar', 'oauth_baz' => 'bla,rgh' ],
 			Request::fromRequest()->getParameters(),
 			'Failed to split auth-header correctly' );
 	}

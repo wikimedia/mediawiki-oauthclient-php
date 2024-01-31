@@ -26,7 +26,7 @@ $client = new Client( $conf );
 
 // Send an HTTP request to the wiki to get the authorization URL and a Request Token.
 // These are returned together as two elements in an array (with keys 0 and 1).
-list( $authUrl, $token ) = $client->initiate();
+[ $authUrl, $token ] = $client->initiate();
 
 // Store the Request Token in the session. We will retrieve it from there when the user is sent back
 // from the wiki (see demo/callback.php).

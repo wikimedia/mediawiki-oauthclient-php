@@ -30,7 +30,7 @@ class ClientTest extends TestCase {
 	 * exception message.
 	 */
 	public function testDecodeJwtInvalid() {
-		list( $client, $method ) = $this->getMethodToTest( 'decodeJWT' );
+		[ $client, $method ] = $this->getMethodToTest( 'decodeJWT' );
 		static::expectExceptionMessage( 'JWT has incorrect format. Received: incorrect-jwt-string' );
 		$method->invokeArgs( $client, [ 'incorrect-jwt-string', '' ] );
 	}
@@ -39,7 +39,7 @@ class ClientTest extends TestCase {
 	 * Test that non-base64 strings throw an exception.
 	 */
 	public function testUrlsafeB64Decode() {
-		list( $client, $method ) = $this->getMethodToTest( 'urlsafeB64Decode' );
+		[ $client, $method ] = $this->getMethodToTest( 'urlsafeB64Decode' );
 		static::expectExceptionMessage( 'Unable to decode base64 value: #non base64#' );
 		$method->invokeArgs( $client, [ '#non base64#' ] );
 	}

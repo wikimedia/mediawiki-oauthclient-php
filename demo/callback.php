@@ -27,7 +27,7 @@ session_start();
 $requestToken = new Token( $_SESSION['request_key'], $_SESSION['request_secret'] );
 
 // Send an HTTP request to the wiki to retrieve an Access Token.
-$accessToken = $client->complete( $requestToken,  $_GET['oauth_verifier'] );
+$accessToken = $client->complete( $requestToken, $_GET['oauth_verifier'] );
 
 // At this point, the user is authenticated, and the access token can be used to make authenticated
 // API requests to the wiki. You can store the Access Token in the session or other secure

@@ -355,7 +355,7 @@ class Client implements LoggerAwareInterface {
 		if ( count( $jwtParts ) !== 3 ) {
 			throw new Exception( "JWT has incorrect format. Received: $JWT" );
 		}
-		list( $headb64, $bodyb64, $sigb64 ) = $jwtParts;
+		[ $headb64, $bodyb64, $sigb64 ] = $jwtParts;
 		$header = $this->decodeJson( $this->urlsafeB64Decode( $headb64 ) );
 		$payload = $this->decodeJson( $this->urlsafeB64Decode( $bodyb64 ) );
 		$sig = $this->urlsafeB64Decode( $sigb64 );
