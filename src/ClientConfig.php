@@ -73,6 +73,14 @@ class ClientConfig {
 	public $userAgent = null;
 
 	/**
+	 * @var bool If only authentication is requested, and the existing
+	 * authorization matches, and the only grants are 'mwoauth-authonly' or
+	 * 'mwoauth-authonlyprivate', proceed without prompting the user. If a
+	 * custom redirURL is set this has no effect.
+	 */
+	public $authenticateOnly = false;
+
+	/**
 	 * @param string $url OAuth endpoint URL
 	 * @param bool $verifySSL
 	 */
@@ -111,5 +119,13 @@ class ClientConfig {
 	 */
 	public function setUserAgent( ?string $userAgent ) {
 		$this->userAgent = $userAgent;
+	}
+
+	/**
+	 * @param bool $authenticateOnly
+	 * @return void
+	 */
+	public function setAuthenticateOnly( bool $authenticateOnly ) {
+		$this->authenticateOnly = $authenticateOnly;
 	}
 }

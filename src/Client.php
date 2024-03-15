@@ -154,8 +154,9 @@ class Client implements LoggerAwareInterface {
 			throw new Exception( "Callback wasn't confirmed" );
 		}
 		$requestToken = new Token( $return->key, $return->secret );
+		$subPage = $this->config->authenticateOnly ? 'authenticate' : 'authorize';
 		$url = $this->config->redirURL ?:
-			$this->config->endpointURL . "/authorize&";
+			( $this->config->endpointURL . "/" . $subPage . "&" );
 		$url .= "oauth_token={$requestToken->key}&oauth_consumer_key={$this->config->consumer->key}";
 		return [ $url, $requestToken ];
 	}
