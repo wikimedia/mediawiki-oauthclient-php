@@ -80,7 +80,6 @@ abstract class RsaSha1 extends SignatureMethod {
 		Token $token = null
 	) {
 		$base_string = $request->getSignatureBaseString();
-		$request->base_string = $base_string;
 
 		// Fetch the private key cert based on the request
 		$cert = $this->fetchPrivateCert( $request );

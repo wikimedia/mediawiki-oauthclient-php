@@ -73,7 +73,6 @@ class Plaintext extends SignatureMethod {
 
 		$key_parts = Util::urlencode( $key_parts );
 		$key = implode( '&', $key_parts );
-		$request->base_string = $key;
 
 		return $key;
 	}
