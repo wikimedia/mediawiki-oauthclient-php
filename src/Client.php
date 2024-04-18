@@ -201,7 +201,7 @@ class Client implements LoggerAwareInterface {
 		}
 		$accessToken = new Token( $return->key, $return->secret );
 		// Cleanup after ourselves
-		$this->setExtraParams = [];
+		$this->setExtraParams( [] );
 		return $accessToken;
 	}
 
