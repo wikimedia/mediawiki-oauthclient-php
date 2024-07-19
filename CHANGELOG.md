@@ -1,10 +1,13 @@
 Changelog
 =========
 
-2.1 - 2024-03-13
+2.2 - 2024-07-19
+----------------
+* Resolved deprecation warnings about "Creation of dynamic property" on PHP 8.2
+
+2.1 - 2024-07-17
 ----------------
 * Added support for authentication only sessions
-* Resolved deprecation warnings about "Creation of dynamic property" on PHP 8.2
 
 2.0 - 2023-03-30
 ----------------
