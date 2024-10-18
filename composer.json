@@ -48,7 +48,7 @@
 	"scripts": {
 		"test": [
 			"parallel-lint . --exclude vendor",
-			"phpunit $PHPUNIT_ARGS",
+			"phpunit",
 			"@phpcs",
 			"minus-x check ."
 		],
