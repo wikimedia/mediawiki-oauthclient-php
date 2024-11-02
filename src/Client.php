@@ -76,7 +76,7 @@ class Client implements LoggerAwareInterface {
 	 */
 	public function __construct(
 		ClientConfig $config,
-		LoggerInterface $logger = null
+		?LoggerInterface $logger = null
 	) {
 		$this->config = $config;
 		$this->logger = $logger ?: new NullLogger();
@@ -244,7 +244,7 @@ class Client implements LoggerAwareInterface {
 	 * @throws Exception On curl failure
 	 */
 	public function makeOAuthCall(
-		/*Token*/ $token, $url, $isPost = false, array $postFields = null
+		/*Token*/ $token, $url, $isPost = false, ?array $postFields = null
 	) {
 		// Figure out if there is a file in postFields
 		$hasFile = false;
@@ -300,7 +300,7 @@ class Client implements LoggerAwareInterface {
 	 * @throws Exception On curl failure
 	 */
 	private function makeCurlCall(
-		$url, $authorizationHeader, $isPost, array $postFields = null, $hasFile = false
+		$url, $authorizationHeader, $isPost, ?array $postFields = null, $hasFile = false
 	) {
 		if ( !$hasFile && $postFields ) {
 			$postFields = http_build_query( $postFields );

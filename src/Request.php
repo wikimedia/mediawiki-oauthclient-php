@@ -84,7 +84,7 @@ class Request {
 	public static function fromRequest(
 		$method = null,
 		$url = null,
-		array $params = null
+		?array $params = null
 	) {
 		$scheme = ( !isset( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] != 'on' ) ?
 			'http' : 'https';
@@ -145,7 +145,7 @@ class Request {
 		?Token $token,
 		$method,
 		$url,
-		array $parameters = null
+		?array $parameters = null
 	) {
 		$parameters = $parameters ?: [];
 		$defaults = [
@@ -333,7 +333,7 @@ class Request {
 	public function signRequest(
 		SignatureMethod $signature_method,
 		Consumer $consumer,
-		Token $token = null
+		?Token $token = null
 	) {
 		$this->setParameter(
 			'oauth_signature_method',
@@ -355,7 +355,7 @@ class Request {
 	public function buildSignature(
 		SignatureMethod $signature_method,
 		Consumer $consumer,
-		Token $token = null
+		?Token $token = null
 	) {
 		$signature = $signature_method->buildSignature(
 			$this, $consumer, $token

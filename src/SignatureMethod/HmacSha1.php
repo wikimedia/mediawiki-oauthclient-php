@@ -59,7 +59,7 @@ class HmacSha1 extends SignatureMethod {
 	public function buildSignature(
 		Request $request,
 		Consumer $consumer,
-		Token $token = null
+		?Token $token = null
 	) {
 		$base_string = $request->getSignatureBaseString();
 

@@ -51,7 +51,7 @@ abstract class SignatureMethod {
 	abstract public function buildSignature(
 		Request $request,
 		Consumer $consumer,
-		Token $token = null
+		?Token $token = null
 	);
 
 	/**

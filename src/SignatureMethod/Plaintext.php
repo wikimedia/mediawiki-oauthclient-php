@@ -64,7 +64,7 @@ class Plaintext extends SignatureMethod {
 	public function buildSignature(
 		Request $request,
 		Consumer $consumer,
-		Token $token = null
+		?Token $token = null
 	) {
 		$key_parts = [
 			$consumer->secret,
