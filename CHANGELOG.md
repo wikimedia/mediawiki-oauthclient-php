@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.3 - 2025-07-08
+----------------
+* Upgrade `mediawiki/mediawiki-codesniffer` from 44.0.0 to 47.0.0.
+  * This has resolved PHP 8.4 deprecation warnings for implicitly
+    marking parameters that are nullable. The nullable type must be
+    used.
+* Remove use of $PHPUNIT_ARGS
+
 2.2 - 2024-07-19
 ----------------
 * Resolved deprecation warnings about "Creation of dynamic property" on PHP 8.2
