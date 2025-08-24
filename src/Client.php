@@ -314,9 +314,11 @@ class Client implements LoggerAwareInterface {
 		$headers = [
 			$authorizationHeader
 		];
+		$userAgent = " MediaWikiOAuthClient (https://www.mediawiki.org/wiki/Oauthclient-php)";
 		if ( $this->config->userAgent !== null ) {
-			$headers[] = 'User-Agent: ' . $this->config->userAgent;
+			$userAgent = $this->config->userAgent . $userAgent;
 		}
+		$headers[] = 'User-Agent: ' . $userAgent;
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 
 		if ( $isPost ) {
