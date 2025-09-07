@@ -113,7 +113,6 @@ class ClientConfig {
 	}
 
 	/**
-	 *
 	 * @param string|null $userAgent
 	 * @return void
 	 */
