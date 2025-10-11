@@ -90,9 +90,6 @@ abstract class RsaSha1 extends SignatureMethod {
 		// Sign using the key
 		$ok = openssl_sign( $base_string, $signature, $privatekeyid );
 
-		// Release the key resource
-		openssl_free_key( $privatekeyid );
-
 		return base64_encode( $signature );
 	}
 
@@ -121,9 +118,6 @@ abstract class RsaSha1 extends SignatureMethod {
 
 		// Check the computed signature against the one passed in the query
 		$ok = openssl_verify( $base_string, $decoded_sig, $publickeyid );
-
-		// Release the key resource
-		openssl_free_key( $publickeyid );
 
 		return $ok == 1;
 	}
