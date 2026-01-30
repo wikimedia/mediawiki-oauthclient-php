@@ -21,7 +21,6 @@ class ClientTest extends TestCase {
 		$client = new Client( new ClientConfig( 'https://example.com/' ) );
 		$reflector = new ReflectionClass( $client );
 		$method = $reflector->getMethod( $methodName );
-		$method->setAccessible( true );
 		return [ $client, $method ];
 	}
 
