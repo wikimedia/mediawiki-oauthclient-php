@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 /**
  * @section LICENSE
  * Copyright (c) 2007 Andy Smith

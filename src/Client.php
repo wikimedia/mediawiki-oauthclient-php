@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 /**
  * @section LICENSE
  * This file is part of the MediaWiki OAuth Client library

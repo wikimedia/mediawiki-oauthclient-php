@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 // To get this demo working, you need to go to this wiki and register a new OAuth consumer.
 // Not that this URL must be of the long form with 'title=Special:OAuth', and not a clean URL.
