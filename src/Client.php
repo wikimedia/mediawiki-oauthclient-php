@@ -252,7 +252,7 @@ class Client implements LoggerAwareInterface {
 		$hasFile = false;
 		if ( is_array( $postFields ) ) {
 			foreach ( $postFields as $field ) {
-				if ( is_a( $field, 'CurlFile' ) ) {
+				if ( is_a( $field, \CurlFile::class ) ) {
 					$hasFile = true;
 					break;
 				}
@@ -261,7 +261,7 @@ class Client implements LoggerAwareInterface {
 
 		$params = [];
 		// Get any params from the url
-		if ( strpos( $url, '?' ) ) {
+		if ( str_contains( $url, '?' ) ) {
 			$parsed = parse_url( $url );
 			parse_str( $parsed['query'], $params );
 		}

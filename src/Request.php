@@ -124,7 +124,7 @@ class Request {
 			// We have a Authorization-header with OAuth data. Parse the header
 			// and add those overriding any duplicates from GET or POST
 			if ( isset( $headers['Authorization'] ) &&
-				substr( $headers['Authorization'], 0, 6 ) === 'OAuth '
+				str_starts_with( $headers['Authorization'], 'OAuth ' )
 			) {
 				$header_params = Util::splitHeader( $headers['Authorization'] );
 				$params = array_merge( $params, $header_params );
@@ -190,8 +190,7 @@ class Request {
 	 * @return mixed
 	 */
 	public function getParameter( $name ) {
-		return isset( $this->parameters[$name] ) ?
-			$this->parameters[$name] : null;
+		return $this->parameters[$name] ?? null;
 	}
 
 	/**
@@ -259,11 +258,10 @@ class Request {
 	public function getNormalizedUrl() {
 		$parts = parse_url( $this->url );
 
-		$scheme = isset( $parts['scheme'] ) ? $parts['scheme'] : 'http';
-		$port = isset( $parts['port'] ) ?
-			$parts['port'] : ( $scheme === 'https' ? '443' : '80' );
-		$host = isset( $parts['host'] ) ? strtolower( $parts['host'] ) : '';
-		$path = isset( $parts['path'] ) ? $parts['path'] : '';
+		$scheme = $parts['scheme'] ?? 'http';
+		$port = $parts['port'] ?? ( $scheme === 'https' ? '443' : '80' );
+		$host = strtolower( $parts['host'] ?? '' );
+		$path = $parts['path'] ?? '';
 
 		if ( ( $scheme === 'https' && $port != '443' ) ||
 			( $scheme === 'http' && $port != '80' )
@@ -310,7 +308,7 @@ class Request {
 		}
 
 		foreach ( $this->parameters as $k => $v ) {
-			if ( substr( $k, 0, 5 ) !== 'oauth' ) {
+			if ( !str_starts_with( $k, 'oauth' ) ) {
 				continue;
 			}
 			if ( is_array( $v ) ) {
