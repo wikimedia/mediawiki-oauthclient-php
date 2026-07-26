@@ -34,7 +34,7 @@ namespace MediaWiki\OAuthClient;
  */
 class Request {
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	protected $parameters;
 
@@ -62,7 +62,7 @@ class Request {
 	/**
 	 * @param string $method
 	 * @param string $url
-	 * @param array|null $parameters
+	 * @param string[]|null $parameters
 	 */
 	public function __construct( $method, $url, $parameters = null ) {
 		$parameters = $parameters ?: [];
@@ -139,7 +139,7 @@ class Request {
 	 * @param Token|null $token
 	 * @param string $method
 	 * @param string $url
-	 * @param array|null $parameters
+	 * @param string[]|null $parameters
 	 * @return Request
 	 */
 	public static function fromConsumerAndToken(
@@ -153,7 +153,7 @@ class Request {
 		$defaults = [
 			'oauth_version' => static::$version,
 			'oauth_nonce' => md5( microtime() . mt_rand() ),
-			'oauth_timestamp' => time(),
+			'oauth_timestamp' => (string)time(),
 			'oauth_consumer_key' => $consumer->key,
 		];
 		if ( $token ) {
