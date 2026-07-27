@@ -140,7 +140,7 @@ class Util {
 	 * @return array
 	 */
 	public static function parseParameters( $input ) {
-		if ( !isset( $input ) || !$input ) {
+		if ( !$input ) {
 			return [];
 		}
 

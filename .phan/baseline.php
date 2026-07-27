@@ -13,8 +13,6 @@ return [
     // PhanUndeclaredGlobalVariable : 7 occurrences
     // PhanTypeMismatchArgument : 3 occurrences
     // PhanTypeMismatchProperty : 3 occurrences
-    // PhanPluginDuplicateConditionalNullCoalescing : 2 occurrences
-    // MediaWikiNoIssetIfDefined : 1 occurrence
     // PhanThrowTypeAbsent : 1 occurrence
     // PhanTypeMismatchArgumentProbablyReal : 1 occurrence
 
@@ -37,11 +35,7 @@ return [
             'PhanThrowTypeAbsent' => ['\\MediaWiki\\OAuthClient\\Request::toHeader'],
             'PhanTypeMismatchProperty' => ['\\MediaWiki\\OAuthClient\\Request::setParameter']
         ],
-        'src/Util.php' => [
-            'MediaWikiNoIssetIfDefined' => ['\\MediaWiki\\OAuthClient\\Util::parseParameters']
-        ],
         'tests/RequestTest.php' => [
-            'PhanPluginDuplicateConditionalNullCoalescing' => ['\\MediaWiki\\OAuthClient\\Test\\RequestTest::buildRequest'],
             'PhanTypeMismatchArgument' => ['\\MediaWiki\\OAuthClient\\Test\\RequestTest::testCanGetSingleParameter', '\\MediaWiki\\OAuthClient\\Test\\RequestTest::testGetAllParameters'],
             'PhanTypePossiblyInvalidDimOffset' => ['\\MediaWiki\\OAuthClient\\Test\\RequestTest::buildRequest']
         ],

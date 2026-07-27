@@ -508,11 +508,10 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$parts = parse_url( $uri );
 
 		$scheme = $parts['scheme'];
-		$port   = isset( $parts['port'] ) && $parts['port'] ?
-			$parts['port'] : ( $scheme === 'https' ? '443' : '80' );
+		$port   = $parts['port'] ?? ( $scheme === 'https' ? '443' : '80' );
 		$host   = $parts['host'];
-		$path   = isset( $parts['path'] ) ? $parts['path'] : null;
-		$query  = isset( $parts['query'] ) ? $parts['query'] : null;
+		$path   = $parts['path'] ?? '';
+		$query  = $parts['query'] ?? '';
 
 		if ( $scheme == 'https' ) {
 			$_SERVER['HTTPS'] = 'on';
@@ -524,7 +523,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 		$_SERVER['SERVER_PORT'] = $port;
 		$_SERVER['SCRIPT_NAME'] = $path;
 		$_SERVER['REQUEST_URI'] = $path . '?' . $query;
-		$_SERVER['QUERY_STRING'] = $query . '';
+		$_SERVER['QUERY_STRING'] = $query;
 
 		if ( $method == 'POST' ) {
 			$_SERVER['HTTP_CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
