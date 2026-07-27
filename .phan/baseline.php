@@ -11,9 +11,7 @@ return [
     // # Issue statistics:
     // PhanTypePossiblyInvalidDimOffset : 7 occurrences
     // PhanUndeclaredGlobalVariable : 7 occurrences
-    // PhanTypeMismatchArgument : 3 occurrences
-    // PhanTypeMismatchProperty : 3 occurrences
-    // PhanThrowTypeAbsent : 1 occurrence
+    // PhanTypeMismatchArgument : 1 occurrence
     // PhanTypeMismatchArgumentProbablyReal : 1 occurrence
 
     'file_suppressions' => [
@@ -31,12 +29,7 @@ return [
         'src/ClientConfig.php' => [
             'PhanTypePossiblyInvalidDimOffset' => ['\\MediaWiki\\OAuthClient\\ClientConfig::__construct']
         ],
-        'src/Request.php' => [
-            'PhanThrowTypeAbsent' => ['\\MediaWiki\\OAuthClient\\Request::toHeader'],
-            'PhanTypeMismatchProperty' => ['\\MediaWiki\\OAuthClient\\Request::setParameter']
-        ],
         'tests/RequestTest.php' => [
-            'PhanTypeMismatchArgument' => ['\\MediaWiki\\OAuthClient\\Test\\RequestTest::testCanGetSingleParameter', '\\MediaWiki\\OAuthClient\\Test\\RequestTest::testGetAllParameters'],
             'PhanTypePossiblyInvalidDimOffset' => ['\\MediaWiki\\OAuthClient\\Test\\RequestTest::buildRequest']
         ],
     ],

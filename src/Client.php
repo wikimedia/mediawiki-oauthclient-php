@@ -241,7 +241,7 @@ class Client implements LoggerAwareInterface {
 	 *     finishing the handshake.
 	 * @param string $url URL to call
 	 * @param bool $isPost true if this should be a POST request
-	 * @param array|null $postFields POST parameters, only if $isPost is also true
+	 * @param array<string,string|string[]>|null $postFields POST parameters, only if $isPost is also true
 	 * @return string Body from the curl request
 	 * @throws Exception On curl failure
 	 */

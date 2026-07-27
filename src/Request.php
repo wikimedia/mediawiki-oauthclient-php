@@ -34,7 +34,7 @@ namespace MediaWiki\OAuthClient;
  */
 class Request {
 	/**
-	 * @var string[]
+	 * @var array<string,string|string[]>
 	 */
 	protected $parameters;
 
@@ -62,7 +62,7 @@ class Request {
 	/**
 	 * @param string $method
 	 * @param string $url
-	 * @param string[]|null $parameters
+	 * @param array<string,string|string[]>|null $parameters
 	 */
 	public function __construct( $method, $url, $parameters = null ) {
 		$parameters = $parameters ?: [];
@@ -80,7 +80,7 @@ class Request {
 	 *
 	 * @param string|null $method
 	 * @param string|null $url
-	 * @param array|null $params
+	 * @param array<string,string|string[]>|null $params
 	 * @return Request
 	 */
 	public static function fromRequest(
@@ -139,7 +139,7 @@ class Request {
 	 * @param Token|null $token
 	 * @param string $method
 	 * @param string $url
-	 * @param string[]|null $parameters
+	 * @param array<string,string|string[]>|null $parameters
 	 * @return Request
 	 */
 	public static function fromConsumerAndToken(
@@ -187,14 +187,14 @@ class Request {
 
 	/**
 	 * @param string $name
-	 * @return mixed
+	 * @return string|string[]|null
 	 */
 	public function getParameter( $name ) {
 		return $this->parameters[$name] ?? null;
 	}
 
 	/**
-	 * @return array
+	 * @return array<string,string|string[]>
 	 */
 	public function getParameters() {
 		return $this->parameters;
@@ -296,6 +296,7 @@ class Request {
 	 * Builds the Authorization: header
 	 * @param string|null $realm
 	 * @return string
+	 * @throws Exception
 	 */
 	public function toHeader( $realm = null ) {
 		$first = true;
