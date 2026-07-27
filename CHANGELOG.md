@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.0 - 2026-07-28
+----------------
+* **BREAKING CHANGE** PHP 8.1 is now required.
+* Resolved deprecation warnings on PHP 8.5.
+* Added the library name "MediaWikiOAuthClient" to the User-Agent header. (T402742)
+* Fixed Request::fromRequest() with caller-supplied $url. (T433211)
+
 2.3 - 2025-07-08
 ----------------
 * Upgrade `mediawiki/mediawiki-codesniffer` from 44.0.0 to 47.0.0.
