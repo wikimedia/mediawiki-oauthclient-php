@@ -9,6 +9,7 @@
 
 	<file>.</file>
 	<exclude-pattern type="relative">^doc/html/*</exclude-pattern>
+	<exclude-pattern type="relative">^.phan/baseline.php</exclude-pattern>
 	<arg name="report" value="full"/>
 	<arg name="encoding" value="UTF-8"/>
 	<arg name="extensions" value="php"/>

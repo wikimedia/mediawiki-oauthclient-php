@@ -34,6 +34,7 @@
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "51.0.0",
+		"mediawiki/mediawiki-phan-config": "0.20.0",
 		"mediawiki/minus-x": "2.0.1",
 		"php-parallel-lint/php-console-highlighter": "1.0.0",
 		"php-parallel-lint/php-parallel-lint": "1.4.0",
@@ -49,12 +50,14 @@
 			"parallel-lint . --exclude vendor",
 			"phpunit",
 			"@phpcs",
+			"@phan",
 			"minus-x check ."
 		],
 		"fix": [
 			"minus-x fix .",
 			"phpcbf"
 		],
+		"phan": "phan --load-baseline=.phan/baseline.php",
 		"phpcs": "phpcs -sp --cache"
 	},
 	"config": {
