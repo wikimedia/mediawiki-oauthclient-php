@@ -98,7 +98,7 @@ class Client implements LoggerAwareInterface {
 	 * @return Client
 	 */
 	public static function newFromKeyAndSecret( $url, $key, $secret ) {
-		$config = new ClientConfig( $url, true, true );
+		$config = new ClientConfig( $url, true );
 		$config->setConsumer( new Consumer( $key, $secret ) );
 		return new static( $config );
 	}

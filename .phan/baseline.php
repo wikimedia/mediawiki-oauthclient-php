@@ -15,7 +15,6 @@ return [
     // PhanTypeMismatchProperty : 3 occurrences
     // PhanPluginDuplicateConditionalNullCoalescing : 2 occurrences
     // MediaWikiNoIssetIfDefined : 1 occurrence
-    // PhanParamTooMany : 1 occurrence
     // PhanThrowTypeAbsent : 1 occurrence
     // PhanTypeMismatchArgumentProbablyReal : 1 occurrence
 
@@ -27,7 +26,6 @@ return [
             'PhanUndeclaredGlobalVariable' => ['demo/callback.php']
         ],
         'src/Client.php' => [
-            'PhanParamTooMany' => ['\\MediaWiki\\OAuthClient\\Client::newFromKeyAndSecret'],
             'PhanTypeMismatchArgument' => ['\\MediaWiki\\OAuthClient\\Client::makeOAuthCall'],
             'PhanTypeMismatchArgumentProbablyReal' => ['\\MediaWiki\\OAuthClient\\Client::initiate'],
             'PhanTypePossiblyInvalidDimOffset' => ['\\MediaWiki\\OAuthClient\\Client::makeOAuthCall']
