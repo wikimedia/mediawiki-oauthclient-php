@@ -372,7 +372,7 @@ class Client implements LoggerAwareInterface {
 		$expectSig = hash_hmac(
 			'sha256', "{$headb64}.{$bodyb64}", $secret, true
 		);
-		if ( $header->alg !== 'HS256' || !$this->compareHash( $sig, $expectSig ) ) {
+		if ( $header->alg !== 'HS256' || !hash_equals( $expectSig, $sig ) ) {
 			throw new Exception( "Invalid JWT signature from /identify." );
 		}
 		return $payload;
@@ -435,21 +435,6 @@ class Client implements LoggerAwareInterface {
 			throw new Exception( "Unable to decode base64 value: $input" );
 		}
 		return $decoded;
-	}
-
-	/**
-	 * Constant time comparison
-	 * @param string $hash1
-	 * @param string $hash2
-	 * @return bool
-	 */
-	private function compareHash( $hash1, $hash2 ) {
-		$result = strlen( $hash1 ) ^ strlen( $hash2 );
-		$len = min( strlen( $hash1 ), strlen( $hash2 ) ) - 1;
-		for ( $i = 0; $i < $len; $i++ ) {
-			$result |= ord( $hash1[$i] ) ^ ord( $hash2[$i] );
-		}
-		return $result == 0;
 	}
 
 	/**
