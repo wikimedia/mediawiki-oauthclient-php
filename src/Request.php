@@ -90,11 +90,11 @@ class Request {
 	) {
 		$scheme = ( !isset( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] != 'on' ) ?
 			'http' : 'https';
-		$url = ( $url ?: $scheme ) .
+		$url = $url ?: ( $scheme .
 			'://' . $_SERVER['SERVER_NAME'] .
 			':' .
 			$_SERVER['SERVER_PORT'] .
-			$_SERVER['REQUEST_URI'];
+			$_SERVER['REQUEST_URI'] );
 		$method = $method ?: $_SERVER['REQUEST_METHOD'];
 
 		// We weren't handed any params, so let's find the ones relevant
