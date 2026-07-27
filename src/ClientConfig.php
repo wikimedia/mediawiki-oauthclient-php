@@ -91,9 +91,12 @@ class ClientConfig {
 		$this->verifySSL = $verifySSL;
 
 		$parts = parse_url( $url );
-		$this->useSSL = $parts['scheme'] === 'https';
-		$this->canonicalServerUrl = "{$parts['scheme']}://{$parts['host']}" .
-			( isset( $parts['port'] ) ? ':' . $parts['port'] : '' );
+		$scheme = $parts['scheme'] ?? 'https';
+		$host = $parts['host'] ?? '';
+		$port = isset( $parts['port'] ) ? ':' . $parts['port'] : '';
+
+		$this->useSSL = $scheme === 'https';
+		$this->canonicalServerUrl = "{$scheme}://{$host}{$port}";
 	}
 
 	/**

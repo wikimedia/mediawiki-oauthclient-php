@@ -507,9 +507,9 @@ class RequestTest extends \PHPUnit\Framework\TestCase {
 
 		$parts = parse_url( $uri );
 
-		$scheme = $parts['scheme'];
+		$scheme = $parts['scheme'] ?? 'https';
 		$port   = $parts['port'] ?? ( $scheme === 'https' ? '443' : '80' );
-		$host   = $parts['host'];
+		$host   = $parts['host'] ?? 'test';
 		$path   = $parts['path'] ?? '';
 		$query  = $parts['query'] ?? '';
 

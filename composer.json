@@ -57,7 +57,7 @@
 			"minus-x fix .",
 			"phpcbf"
 		],
-		"phan": "phan --load-baseline=.phan/baseline.php",
+		"phan": "phan --allow-polyfill-parser",
 		"phpcs": "phpcs -sp --cache"
 	},
 	"config": {

@@ -235,7 +235,7 @@ class Client implements LoggerAwareInterface {
 	/**
 	 * Make a signed request to MediaWiki
 	 *
-	 * @param Token $token additional token to use in signature, besides
+	 * @param Token|null $token additional token to use in signature, besides
 	 *     the consumer token. In most cases, this will be the access token you
 	 *     got from complete(), but we set it to the request token when
 	 *     finishing the handshake.
@@ -246,7 +246,7 @@ class Client implements LoggerAwareInterface {
 	 * @throws Exception On curl failure
 	 */
 	public function makeOAuthCall(
-		/*Token*/ $token, $url, $isPost = false, ?array $postFields = null
+		?Token $token, $url, $isPost = false, ?array $postFields = null
 	) {
 		// Figure out if there is a file in postFields
 		$hasFile = false;
@@ -263,7 +263,9 @@ class Client implements LoggerAwareInterface {
 		// Get any params from the url
 		if ( str_contains( $url, '?' ) ) {
 			$parsed = parse_url( $url );
-			parse_str( $parsed['query'], $params );
+			if ( isset( $parsed['query'] ) ) {
+				parse_str( $parsed['query'], $params );
+			}
 		}
 		$params += $this->extraParams;
 		if ( $isPost && $postFields && !$hasFile ) {
@@ -294,7 +296,7 @@ class Client implements LoggerAwareInterface {
 
 	/**
 	 * @param string $url
-	 * @param array $authorizationHeader
+	 * @param string $authorizationHeader
 	 * @param bool $isPost
 	 * @param array|null $postFields
 	 * @param bool $hasFile
