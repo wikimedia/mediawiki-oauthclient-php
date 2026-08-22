@@ -19,7 +19,7 @@
 	],
 	"support": {
 		"issues": "https://phabricator.wikimedia.org/tag/oauth/",
-		"source": "https://github.com/wikimedia/oauthclient-php/",
+		"source": "https://github.com/wikimedia/mediawiki-oauthclient-php/",
 		"docs": "https://www.mediawiki.org/wiki/oauthclient-php"
 	},
 	"require": {
