@@ -252,7 +252,7 @@ class Client implements LoggerAwareInterface {
 		$hasFile = false;
 		if ( is_array( $postFields ) ) {
 			foreach ( $postFields as $field ) {
-				if ( is_a( $field, \CurlFile::class ) ) {
+				if ( is_a( $field, \CURLFile::class ) ) {
 					$hasFile = true;
 					break;
 				}
